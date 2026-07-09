@@ -20,3 +20,22 @@ body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smo
 .marquee-track:hover {
   animation-play-state: paused;
 }
+
+/* Motion Tile Rows */
+@keyframes tile-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes tile-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.tile-row-left {
+  animation: tile-scroll-left 20s linear infinite;
+}
+
+.tile-row-right {
+  animation: tile-scroll-right 20s linear infinite;
+}

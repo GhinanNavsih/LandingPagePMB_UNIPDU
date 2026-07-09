@@ -79,8 +79,31 @@ export default function Programs() {
   const activeFaculty = faculties.find((f) => f.id === activeTab) || faculties[0];
 
   return (
-    <section id="programs" className="py-20 bg-canvas">
-      <div className="max-w-[1060px] mx-auto px-6">
+    <section id="programs" className="py-20 bg-canvas relative overflow-hidden">
+      {/* Motion Tile Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden flex flex-col justify-around py-4">
+        {Array.from({ length: 8 }).map((_, rowIdx) => (
+          <div
+            key={rowIdx}
+            className={rowIdx % 2 === 0 ? "tile-row-left" : "tile-row-right"}
+          >
+            <div className="flex gap-4 w-max items-center">
+              {Array.from({ length: 30 }).map((_, i) => (
+                <img
+                  key={i}
+                  src="/logo-unipdu.png"
+                  alt=""
+                  style={{ height: "50px", width: "60px", objectFit: "fill" }}
+                  className="opacity-50 blur-[1.5px] flex-shrink-0"
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="max-w-[1060px] mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-pink font-semibold text-xs tracking-wider uppercase">

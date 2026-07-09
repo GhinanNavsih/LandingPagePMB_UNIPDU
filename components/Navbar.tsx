@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,10 +38,14 @@ export default function Navbar() {
     >
       <div className="max-w-[1060px] mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
-          <span className="w-8 h-8 rounded-lg bg-pink flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-pink/20 transition-transform group-hover:scale-105">
-            U
-          </span>
+        <a href="#" className="flex items-center gap-2.5 group">
+          <Image
+            src="/logo-unipdu.png"
+            alt="Logo UNIPDU Jombang"
+            width={55}
+            height={45}
+            className="transition-transform group-hover:scale-105 object-fill"
+          />
           <div className="flex flex-col">
             <span className={`font-extrabold tracking-tight text-lg leading-none transition-colors duration-300 ${isScrolled ? "text-ink" : "text-white"}`}>
               PMB UNIPDU
