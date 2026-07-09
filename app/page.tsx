@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import RunningText from "@/components/RunningText";
 import StatsBar from "@/components/StatsBar";
 import Programs from "@/components/Programs";
 import Akreditasi from "@/components/Akreditasi";
@@ -12,6 +13,7 @@ export default function Page() {
     <main className="relative min-h-screen">
       <Navbar />
       <Hero />
+      <RunningText />
       <StatsBar />
       <Programs />
       <Akreditasi />

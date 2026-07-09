@@ -20,9 +20,9 @@ export default function Programs() {
       icon: IconBook,
       color: "bg-emerald-50 text-emerald-600 border-emerald-100",
       programs: [
-        "S1 Pendidikan Agama Islam (PAI)",
-        "S1 Hukum Keluarga (Ahwal Al-Syakhsiyah)",
-        "S1 Pendidikan Guru Madrasah Ibtidaiyah (PGMI)",
+        "S1 Pendidikan Agama Islam (S.Pd.)",
+        "S1 Hukum Keluarga (S.H.)",
+        "S1 PGMI (S.Pd.I)",
       ],
     },
     {
@@ -32,12 +32,10 @@ export default function Programs() {
       icon: IconActivity,
       color: "bg-sky-50 text-sky-600 border-sky-100",
       programs: [
-        "S1 Ilmu Keperawatan",
-        "S1 Kebidanan",
-        "D3 Keperawatan",
-        "D3 Kebidanan",
-        "Profesi Ners",
-        "Profesi Bidan",
+        "S1 Ilmu Keperawatan (S.Kep.)",
+        "S1 Kebidanan (S.Keb.)",
+        "Profesi Ners (Ners)",
+        "Profesi Bidan (Bid.)",
       ],
     },
     {
@@ -47,11 +45,10 @@ export default function Programs() {
       icon: IconBriefcase,
       color: "bg-indigo-50 text-indigo-600 border-indigo-100",
       programs: [
-        "S1 Administrasi Bisnis",
-        "S1 Sastra Inggris",
-        "S1 Pendidikan Bahasa Inggris",
-        "S1 Pendidikan Matematika",
-        "D3 Bahasa Jepang",
+        "S1 Administrasi Bisnis (S.AB.)",
+        "S1 Bahasa Inggris Bisnis (S.S.)",
+        "S1 Pendidikan Bahasa Inggris (S.Pd.)",
+        "S1 Pendidikan Matematika (S.Pd.)",
       ],
     },
     {
@@ -60,7 +57,10 @@ export default function Programs() {
       short: "FST",
       icon: IconCpu,
       color: "bg-amber-50 text-amber-600 border-amber-100",
-      programs: ["S1 Sistem Informasi", "S1 Matematika"],
+      programs: [
+        "S1 Sistem Informasi (S.Kom.)",
+        "S1 Matematika Bisnis (S.Mat.)",
+      ],
     },
     {
       id: "s2",
@@ -68,7 +68,10 @@ export default function Programs() {
       short: "S2",
       icon: IconSchool,
       color: "bg-purple-50 text-purple-600 border-purple-100",
-      programs: ["Magister Manajemen Pendidikan Islam (S2)"],
+      programs: [
+        "S2 Manajemen Pendidikan Islam (M.Pd.)",
+        "S2 Kesehatan Masyarakat (M.Kes.)",
+      ],
     },
   ];
 
@@ -87,7 +90,7 @@ export default function Programs() {
             Temukan Bidang Minat Terbaikmu
           </h2>
           <p className="text-[16px] text-muted mt-4">
-            UNIPDU Jombang menawarkan beragam program studi terakreditasi untuk jenjang Diploma, Sarjana, Profesi, hingga Pascasarjana.
+            UNIPDU Jombang menawarkan 15 program studi terakreditasi untuk jenjang Sarjana (S1), Profesi, hingga Pascasarjana (S2).
           </p>
         </div>
 

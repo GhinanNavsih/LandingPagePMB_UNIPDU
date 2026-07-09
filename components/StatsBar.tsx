@@ -6,7 +6,7 @@ export default function StatsBar() {
   const stats = [
     { value: "5", label: "Fakultas Pilihan" },
     { value: "15+", label: "Program Studi" },
-    { value: "5.000+", label: "Mahasiswa Aktif" },
+    { value: "8", label: "Program Beasiswa" },
     { value: "100+", label: "Dosen Profesional" },
     { value: "Baik Sekali", label: "Akreditasi Institusi" },
   ];

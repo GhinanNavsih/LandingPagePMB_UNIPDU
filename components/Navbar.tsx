@@ -42,10 +42,10 @@ export default function Navbar() {
             U
           </span>
           <div className="flex flex-col">
-            <span className="font-extrabold text-ink tracking-tight text-lg leading-none">
+            <span className={`font-extrabold tracking-tight text-lg leading-none transition-colors duration-300 ${isScrolled ? "text-ink" : "text-white"}`}>
               PMB UNIPDU
             </span>
-            <span className="text-[10px] text-muted font-medium mt-0.5">
+            <span className={`text-[10px] font-medium mt-0.5 transition-colors duration-300 ${isScrolled ? "text-muted" : "text-white/70"}`}>
               Jombang • East Java
             </span>
           </div>
@@ -58,7 +58,11 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[15px] font-medium text-body hover:text-pink transition-colors"
+                className={`text-[15px] font-medium transition-colors duration-300 ${
+                  isScrolled
+                    ? "text-body hover:text-pink"
+                    : "text-white/90 hover:text-white"
+                }`}
               >
                 {link.name}
               </a>
@@ -75,7 +79,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-ink hover:text-pink transition-colors focus:outline-none"
+          className={`md:hidden p-2 transition-colors focus:outline-none ${isScrolled ? "text-ink hover:text-pink" : "text-white hover:text-white/70"}`}
           aria-label="Toggle Menu"
         >
           {isOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
@@ -107,3 +111,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

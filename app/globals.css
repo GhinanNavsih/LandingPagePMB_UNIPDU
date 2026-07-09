@@ -6,3 +6,17 @@
 
 html, body { background: #ffffff; color: #3d3542; scroll-behavior: smooth; }
 body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+/* Marquee / Running Text */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-scroll 15s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
