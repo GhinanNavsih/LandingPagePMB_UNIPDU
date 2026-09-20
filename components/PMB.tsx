@@ -39,28 +39,30 @@ export default function PMB() {
   ];
 
   return (
-    <section id="pmb" className="py-20 bg-ink text-white relative overflow-hidden">
-      {/* Background Subtle Shape */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.03] pointer-events-none" />
+    <section id="pmb" className="py-24 bg-gradient-to-b from-emerald-950 via-[#07241a] to-emerald-950 text-white relative overflow-hidden border-b border-emerald-900/60">
+      {/* Background Subtle Texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(#eedaa8_1px,transparent_1px)] [background-size:36px_36px] opacity-[0.035] pointer-events-none" />
 
-      <div className="max-w-[1060px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1080px] mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-pink-bright font-semibold text-xs tracking-wider uppercase">
-            Alur Pendaftaran
+          <span className="text-amber-300 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
+            <span className="text-gold text-xs">✦</span>
+            <span>Alur Pendaftaran</span>
+            <span className="text-gold text-xs">✦</span>
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold mt-3">
-            Cara Mendaftar Online di UNIPDU
+          <h2 className="font-serif text-3xl md:text-[42px] font-normal text-white mt-3 leading-tight">
+            Alur Penerimaan Online di <span className="italic font-normal text-amber-300">UNIPDU</span>
           </h2>
-          <p className="text-[16px] text-white/72 mt-4 leading-relaxed">
-            Proses penerimaan mahasiswa baru dilakukan sepenuhnya secara online. Ikuti 5 langkah mudah berikut ini:
+          <p className="text-[15.5px] text-emerald-100/75 mt-4 leading-relaxed">
+            Seluruh proses penerimaan mahasiswa baru dapat diakses secara fleksibel dari mana saja melalui 5 tahapan terpadu:
           </p>
         </div>
 
         {/* Timeline Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-7 relative">
           {/* Connector Line (Desktop) */}
-          <div className="hidden md:block absolute top-[44px] left-[10%] right-[10%] h-px bg-white/10 z-0" />
+          <div className="hidden md:block absolute top-[42px] left-[8%] right-[8%] h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent z-0" />
 
           {steps.map((step, index) => {
             const Icon = step.icon;
@@ -70,24 +72,24 @@ export default function PMB() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 className="flex flex-col items-center text-center relative z-10 group"
               >
                 {/* Step Number Badge */}
-                <div className="absolute -top-3 -right-2 bg-pink-bright text-ink text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -top-2.5 -right-1 bg-gold text-emerald-950 text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md border border-amber-200">
                   {index + 1}
                 </div>
 
                 {/* Icon Container */}
-                <div className="w-[88px] h-[88px] rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-pink-bright mb-5 group-hover:bg-white/[0.08] group-hover:border-pink-bright/30 transition-all duration-200 shadow-inner">
-                  <Icon size={34} strokeWidth={1.8} />
+                <div className="w-[84px] h-[84px] rounded-2xl bg-white/[0.04] border border-white/12 flex items-center justify-center text-amber-300 mb-5 group-hover:bg-white/[0.08] group-hover:border-gold/50 transition-all duration-200 shadow-inner">
+                  <Icon size={32} strokeWidth={1.75} />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-lg font-bold text-white mb-2 leading-tight">
+                <h3 className="font-serif text-[17px] font-medium text-white mb-2 leading-tight">
                   {step.title}
                 </h3>
-                <p className="text-sm text-white/72 leading-relaxed">
+                <p className="text-[13px] text-emerald-100/70 leading-relaxed">
                   {step.desc}
                 </p>
               </motion.div>
@@ -98,10 +100,12 @@ export default function PMB() {
         {/* CTA Box */}
         <div className="mt-16 text-center">
           <a
-            href="/login"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-pink-bright text-ink font-bold text-[15px] hover:bg-white hover:text-ink transition-all duration-200 shadow-md active:scale-[0.98]"
+            href="https://pmb.unipdu.ac.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[14.5px] transition-all duration-200 shadow-lg shadow-gold/20 active:scale-[0.98]"
           >
-            Mulai Registrasi Akun PMB
+            Mulai Registrasi Akun PMB Online
           </a>
         </div>
       </div>

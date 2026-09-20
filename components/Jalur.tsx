@@ -45,18 +45,20 @@ export default function Jalur() {
   ];
 
   return (
-    <section id="jalur" className="py-20 bg-canvas">
-      <div className="max-w-[1060px] mx-auto px-6">
+    <section id="jalur" className="py-24 bg-paper">
+      <div className="max-w-[1080px] mx-auto px-6">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-pink font-semibold text-xs tracking-wider uppercase">
-            Jalur Penerimaan
+          <span className="text-emerald-800 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
+            <span className="text-gold text-xs">✦</span>
+            <span>Jalur Penerimaan</span>
+            <span className="text-gold text-xs">✦</span>
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-ink mt-3">
-            Pilihan Jalur Masuk Calon Mahasiswa
+          <h2 className="font-serif text-3xl md:text-[42px] font-normal text-ink mt-3 leading-tight">
+            Pilihan <span className="italic font-normal text-emerald-800">Jalur Masuk</span> Calon Mahasiswa
           </h2>
-          <p className="text-[16px] text-muted mt-4">
-            Pilih jalur masuk yang paling sesuai dengan profil, kualifikasi akademik, dan kebutuhan profesional Anda.
+          <p className="text-[15.5px] text-muted mt-4 leading-relaxed">
+            Tentukan skema seleksi yang paling sesuai dengan kualifikasi akademik, prestasi, maupun kebutuhan profesional Anda.
           </p>
         </div>
 
@@ -71,11 +73,11 @@ export default function Jalur() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.1 }}
-                whileHover={{ y: -6 }}
-                className={`bg-canvas border rounded-2xl p-6 md:p-8 transition-all duration-200 flex flex-col justify-between ${
+                whileHover={{ y: -5 }}
+                className={`bg-white border rounded-2xl p-7 md:p-8 transition-all duration-200 flex flex-col justify-between ${
                   path.featured
-                    ? "border-pink shadow-[0_8px_30px_rgb(214,31,111,0.06)]"
-                    : "border-line hover:border-pink-border shadow-[0_4px_16px_rgba(23,17,26,0.02)]"
+                    ? "border-gold/60 shadow-[0_12px_32px_-8px_rgba(197,147,40,0.12)] relative"
+                    : "border-line hover:border-emerald-700/30 shadow-[0_4px_16px_rgba(18,27,22,0.02)]"
                 }`}
               >
                 <div>
@@ -84,16 +86,16 @@ export default function Jalur() {
                     <div
                       className={`p-3.5 rounded-xl border ${
                         path.featured
-                          ? "bg-pink-soft text-pink border-pink-border"
-                          : "bg-paper text-muted border-line"
+                          ? "bg-gold-soft text-emerald-900 border-gold-border"
+                          : "bg-paper text-emerald-800 border-line"
                       }`}
                     >
                       <Icon size={24} />
                     </div>
                     <span
-                      className={`text-[11px] font-bold px-2.5 py-1 rounded-md tracking-wide uppercase ${
+                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-md tracking-wide uppercase ${
                         path.featured
-                          ? "bg-pink text-white"
+                          ? "bg-emerald-900 text-amber-200"
                           : "bg-paper text-muted border border-line"
                       }`}
                     >
@@ -102,13 +104,13 @@ export default function Jalur() {
                   </div>
 
                   {/* Titles */}
-                  <h3 className="text-xl font-bold text-ink leading-tight">{path.title}</h3>
-                  <h4 className="text-xs font-semibold text-muted tracking-wide uppercase mt-1">
+                  <h3 className="font-serif text-2xl font-medium text-ink leading-tight">{path.title}</h3>
+                  <h4 className="text-[11.5px] font-medium text-muted tracking-wide uppercase mt-1">
                     {path.subtitle}
                   </h4>
 
                   {/* Description */}
-                  <p className="text-sm text-body leading-relaxed mt-4">{path.desc}</p>
+                  <p className="text-[14px] text-body/90 leading-relaxed mt-4">{path.desc}</p>
 
                   <div className="my-6 border-t border-line" />
 
@@ -116,8 +118,8 @@ export default function Jalur() {
                   <ul className="space-y-3">
                     {path.details.map((detail, dIdx) => (
                       <li key={dIdx} className="flex items-start gap-2.5">
-                        <span className="text-pink mt-0.5 flex-shrink-0">
-                          <IconCircleCheck size={16} />
+                        <span className="text-emerald-800 mt-0.5 flex-shrink-0">
+                          <IconCircleCheck size={17} />
                         </span>
                         <span className="text-[13.5px] text-body leading-normal font-medium">
                           {detail}
@@ -130,14 +132,16 @@ export default function Jalur() {
                 {/* Action button */}
                 <div className="mt-8">
                   <a
-                    href="/login"
-                    className={`w-full text-center block px-4 py-3 rounded-lg font-bold text-[14px] transition-all duration-200 active:scale-[0.98] ${
+                    href="https://pmb.unipdu.ac.id"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full text-center block px-4 py-3 rounded-xl font-medium text-[14px] transition-all duration-200 active:scale-[0.98] ${
                       path.featured
-                        ? "bg-pink text-white hover:bg-pink-dark shadow-sm"
-                        : "bg-paper border border-line text-body hover:bg-canvas hover:border-pink-border hover:text-pink"
+                        ? "bg-emerald-900 text-white hover:bg-emerald-950 shadow-sm"
+                        : "bg-paper border border-line text-body hover:bg-white hover:border-emerald-700/40 hover:text-emerald-900"
                     }`}
                   >
-                    Daftar Jalur Ini
+                    Daftar Melalui {path.title}
                   </a>
                 </div>
               </motion.div>

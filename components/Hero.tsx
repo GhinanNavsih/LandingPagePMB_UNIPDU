@@ -17,63 +17,65 @@ export default function Hero() {
         <source src="/DJI_0484.MP4" type="video/mp4" />
       </video>
 
-      {/* Dark Overlay for readability */}
-      <div className="absolute inset-0 bg-black/60" />
+      {/* Cinematic Islamic Emerald Overlay for readability and prestige */}
+      <div className="absolute inset-0 bg-emerald-950/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-transparent to-emerald-950/95" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(197,147,40,0.15),transparent_60%)] pointer-events-none" />
 
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
-
-      <div className="max-w-[1060px] mx-auto px-6 relative z-10 w-full text-center">
+      <div className="max-w-[1080px] mx-auto px-6 relative z-10 w-full text-center">
         {/* Eyebrow badge */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold text-xs tracking-wider uppercase mb-6"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/60 backdrop-blur-md border border-gold/30 text-amber-200 text-xs font-medium tracking-wide mb-6 shadow-sm"
         >
-          <span>Penerimaan Mahasiswa Baru • 2026/2027</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span>Penerimaan Mahasiswa Baru • T.A. 2026/2027</span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] max-w-4xl mx-auto drop-shadow-lg"
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="font-serif text-4xl sm:text-5xl md:text-[62px] font-normal text-white leading-[1.18] max-w-4xl mx-auto drop-shadow-md"
         >
-          Mulai Langkah Suksesmu Bersama{" "}
-          <span className="text-pink-bright">Unipdu Jombang</span>
+          Membuka Masa Depan,{" "}
+          <span className="italic font-normal text-amber-300">Berkarakter Pesantren</span> & Unggul
         </motion.h1>
 
         {/* Subhead */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-[16px] md:text-[18px] text-white/80 leading-relaxed max-w-2xl mx-auto mt-6 drop-shadow"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-[16px] md:text-[18px] text-emerald-50/85 leading-relaxed max-w-2xl mx-auto mt-6"
         >
-          Universitas Pesantren Tinggi Darul 'Ulum (UNIPDU) menggabungkan keunggulan akademik dengan nilai-nilai luhur pesantren untuk mencetak generasi berprestasi dan berkarakter mulia.
+          Universitas Pesantren Tinggi Darul 'Ulum (UNIPDU) Jombang memadukan integritas sains modern dengan kedalaman akhlak mulia untuk mencetak generasi berdaya saing global.
         </motion.p>
 
         {/* Call to Actions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
         >
           <a
-            href="/login"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-pink text-white font-semibold text-[15px] hover:bg-pink-dark transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group active:scale-[0.98]"
+            href="https://pmb.unipdu.ac.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[15px] transition-all duration-200 shadow-lg shadow-gold/20 hover:shadow-xl flex items-center justify-center gap-2.5 group active:scale-[0.98]"
           >
             Daftar Sekarang
-            <IconArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
+            <IconArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href="#programs"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold text-[15px] hover:bg-white/20 transition-all duration-200 flex items-center justify-center active:scale-[0.98]"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium text-[15px] backdrop-blur-md transition-all duration-200 flex items-center justify-center active:scale-[0.98]"
           >
-            Lihat Program Studi
+            Pilihan Program Studi
           </a>
         </motion.div>
 
@@ -82,16 +84,21 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 inline-flex items-center gap-6 px-5 py-3 rounded-xl border border-white/15 bg-white/10 backdrop-blur-md"
+          className="mt-14 inline-flex items-center gap-6 px-6 py-3 rounded-xl border border-white/15 bg-emerald-950/40 backdrop-blur-md shadow-sm"
         >
           <div className="flex flex-col items-center">
-            <span className="text-xs text-white/60">Akreditasi Institusi</span>
-            <span className="text-sm font-bold text-white">Baik Sekali</span>
+            <span className="text-[11px] text-emerald-100/70 tracking-wide">Akreditasi Institusi</span>
+            <span className="font-serif text-[15px] font-semibold text-amber-200">Baik Sekali</span>
           </div>
-          <div className="w-px h-8 bg-white/20" />
+          <div className="w-px h-7 bg-white/15" />
           <div className="flex flex-col items-center">
-            <span className="text-xs text-white/60">Keputusan BAN-PT</span>
-            <span className="text-sm font-bold text-white">377/SK/BAN-PT/2023</span>
+            <span className="text-[11px] text-emerald-100/70 tracking-wide">SK BAN-PT</span>
+            <span className="text-xs font-semibold text-white/90">No. 377/SK/BAN-PT/2023</span>
+          </div>
+          <div className="w-px h-7 bg-white/15" />
+          <div className="flex flex-col items-center">
+            <span className="text-[11px] text-emerald-100/70 tracking-wide">Pondok Pesantren</span>
+            <span className="font-serif text-[15px] font-semibold text-white/90">Darul 'Ulum Jombang</span>
           </div>
         </motion.div>
       </div>

@@ -79,46 +79,25 @@ export default function Programs() {
   const activeFaculty = faculties.find((f) => f.id === activeTab) || faculties[0];
 
   return (
-    <section id="programs" className="py-20 bg-canvas relative overflow-hidden">
-      {/* Motion Tile Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden flex flex-col justify-around py-4">
-        {Array.from({ length: 8 }).map((_, rowIdx) => (
-          <div
-            key={rowIdx}
-            className={rowIdx % 2 === 0 ? "tile-row-left" : "tile-row-right"}
-          >
-            <div className="flex gap-4 w-max items-center">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <img
-                  key={i}
-                  src="/logo-unipdu.png"
-                  alt=""
-                  style={{ height: "50px", width: "60px", objectFit: "fill" }}
-                  className="opacity-50 blur-[1.5px] flex-shrink-0"
-                  aria-hidden="true"
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="max-w-[1060px] mx-auto px-6 relative z-10">
+    <section id="programs" className="py-24 bg-paper relative overflow-hidden">
+      <div className="max-w-[1080px] mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-pink font-semibold text-xs tracking-wider uppercase">
-            Pilihan Program Studi
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <span className="text-emerald-800 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
+            <span className="text-gold text-xs">✦</span>
+            <span>Program Pendidikan</span>
+            <span className="text-gold text-xs">✦</span>
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-ink mt-3">
-            Temukan Bidang Minat Terbaikmu
+          <h2 className="font-serif text-3xl md:text-[42px] font-normal text-ink mt-3 leading-tight">
+            Temukan <span className="italic font-normal text-emerald-800">Bidang Keilmuan</span> Terbaikmu
           </h2>
-          <p className="text-[16px] text-muted mt-4">
-            UNIPDU Jombang menawarkan 15 program studi terakreditasi untuk jenjang Sarjana (S1), Profesi, hingga Pascasarjana (S2).
+          <p className="text-[15.5px] text-muted mt-4 leading-relaxed">
+            UNIPDU Jombang menyelenggarakan 15 program studi terakreditasi untuk jenjang Sarjana (S1), Pendidikan Profesi, hingga Pascasarjana (S2).
           </p>
         </div>
 
         {/* Desktop Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-2.5 md:gap-3.5 mb-10">
           {faculties.map((fac) => {
             const Icon = fac.icon;
             const isActive = activeTab === fac.id;
@@ -126,17 +105,17 @@ export default function Programs() {
               <button
                 key={fac.id}
                 onClick={() => setActiveTab(fac.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-xl border text-[14px] font-semibold transition-all duration-200 focus:outline-none ${
+                className={`flex items-center gap-2.5 px-5 py-3 rounded-xl border text-[13.5px] font-medium transition-all duration-200 focus:outline-none ${
                   isActive
-                    ? "bg-pink border-pink text-white shadow-sm"
-                    : "bg-canvas border-line text-body hover:bg-paper hover:border-pink-border hover:text-pink"
+                    ? "bg-emerald-900 border-emerald-950 text-white shadow-sm"
+                    : "bg-white border-line text-body hover:bg-paper hover:border-emerald-700/30 hover:text-emerald-900"
                 }`}
               >
-                <Icon size={18} />
+                <Icon size={18} className={isActive ? "text-amber-300" : "text-emerald-800"} />
                 <span>{fac.name}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.5 rounded-md ${
-                    isActive ? "bg-white/20 text-white" : "bg-paper text-muted border border-line"
+                  className={`text-[10px] font-semibold px-2 py-0.5 rounded-md ${
+                    isActive ? "bg-emerald-950 text-amber-200 border border-emerald-800/60" : "bg-paper-alt text-muted border border-line"
                   }`}
                 >
                   {fac.short}
@@ -147,22 +126,22 @@ export default function Programs() {
         </div>
 
         {/* Content Panel */}
-        <div className="bg-paper border border-line rounded-2xl p-6 md:p-8 min-h-[250px]">
+        <div className="bg-white border border-line rounded-2xl p-7 md:p-10 shadow-[0_4px_24px_-4px_rgba(18,27,22,0.04)] min-h-[260px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.22 }}
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-6 border-b border-line">
                 <div className="flex items-center gap-4">
-                  <div className={`p-3.5 rounded-xl border ${activeFaculty.color}`}>
+                  <div className="p-3.5 rounded-xl border border-emerald-200/60 bg-emerald-50 text-emerald-800">
                     <activeFaculty.icon size={26} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-ink">
+                    <h3 className="font-serif text-xl font-semibold text-ink">
                       Fakultas {activeFaculty.name}
                     </h3>
                     <p className="text-xs text-muted mt-1">
@@ -170,8 +149,9 @@ export default function Programs() {
                     </p>
                   </div>
                 </div>
-                <div className="inline-flex px-3 py-1.5 rounded-lg border border-line bg-canvas text-xs font-semibold text-body">
-                  {activeFaculty.programs.length} Program Studi Pilihan
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-line bg-paper text-xs font-medium text-emerald-900">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                  <span>{activeFaculty.programs.length} Program Studi Pilihan</span>
                 </div>
               </div>
 
@@ -182,12 +162,12 @@ export default function Programs() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.04 }}
-                    className="flex items-start gap-3 p-4 rounded-xl bg-canvas border border-line hover:border-pink-border hover:shadow-[0_4px_12px_-4px_rgba(23,17,26,0.04)] transition-all duration-200"
+                    className="flex items-start gap-3.5 p-4.5 rounded-xl bg-paper border border-line hover:border-emerald-700/30 hover:bg-white hover:shadow-[0_8px_20px_-6px_rgba(18,27,22,0.04)] transition-all duration-200"
                   >
-                    <div className="w-5 h-5 rounded-full bg-pink-soft border border-pink-border flex items-center justify-center text-pink mt-0.5 flex-shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-emerald-100/70 border border-emerald-300/60 flex items-center justify-center text-emerald-800 mt-0.5 flex-shrink-0">
                       <IconCheck size={12} strokeWidth={3} />
                     </div>
-                    <span className="text-[15px] font-semibold text-body leading-snug">
+                    <span className="text-[14.5px] font-medium text-body leading-snug">
                       {prog}
                     </span>
                   </motion.div>

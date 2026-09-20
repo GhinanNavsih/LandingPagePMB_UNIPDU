@@ -5,44 +5,45 @@ import { IconAward, IconCircleCheck } from "@tabler/icons-react";
 
 export default function Akreditasi() {
   return (
-    <section id="akreditasi" className="py-20 bg-paper border-y border-line">
-      <div className="max-w-[1060px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <section id="akreditasi" className="py-24 bg-canvas border-b border-line">
+      <div className="max-w-[1080px] mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Text Content */}
           <div className="lg:col-span-7 space-y-6">
-            <span className="text-pink font-semibold text-xs tracking-wider uppercase">
-              Penjaminan Mutu Akademik
+            <span className="text-emerald-800 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
+              <span className="text-gold text-xs">✦</span>
+              <span>Penjaminan Mutu Akademik</span>
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-ink leading-tight">
-              Terakreditasi "Baik Sekali" Oleh BAN-PT
+            <h2 className="font-serif text-3xl md:text-[42px] font-normal text-ink leading-tight">
+              Terakreditasi <span className="italic font-normal text-emerald-800">"Baik Sekali"</span> oleh BAN-PT
             </h2>
-            <p className="text-[16px] text-body leading-relaxed">
-              Kualitas pendidikan di UNIPDU Jombang telah resmi diakui dan terstandarisasi secara nasional oleh Badan Akreditasi Nasional Perguruan Tinggi (BAN-PT). Komitmen kami adalah terus menyelenggarakan pendidikan berkualitas tinggi yang relevan dengan tuntutan zaman.
+            <p className="text-[15.5px] text-body/90 leading-relaxed">
+              Standar mutu pendidikan dan tata kelola akademik di UNIPDU Jombang telah resmi teruji dan terstandarisasi secara nasional oleh Badan Akreditasi Nasional Perguruan Tinggi (BAN-PT). Komitmen kami adalah konsistensi menghadirkan pembelajaran unggul berbasis integritas ilmiah dan moralitas pesantren.
             </p>
 
-            <div className="space-y-3.5 pt-2">
-              <div className="flex items-center gap-3">
-                <div className="text-pink flex-shrink-0">
-                  <IconCircleCheck size={20} />
+            <div className="space-y-4 pt-2">
+              <div className="flex items-start gap-3.5">
+                <div className="text-emerald-800 flex-shrink-0 mt-0.5">
+                  <IconCircleCheck size={21} />
                 </div>
-                <span className="text-[15px] font-semibold text-body">
-                  SK Akreditasi Institusi No. 377/SK/BAN-PT/Ak/PT/V/2023
+                <span className="text-[14.5px] font-medium text-body">
+                  Surat Keputusan Akreditasi Institusi BAN-PT No. 377/SK/BAN-PT/Ak/PT/V/2023
                 </span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="text-pink flex-shrink-0">
-                  <IconCircleCheck size={20} />
+              <div className="flex items-start gap-3.5">
+                <div className="text-emerald-800 flex-shrink-0 mt-0.5">
+                  <IconCircleCheck size={21} />
                 </div>
-                <span className="text-[15px] font-semibold text-body">
-                  Kurikulum berbasis kompetensi dan nilai-nilai akhlakul karimah
+                <span className="text-[14.5px] font-medium text-body">
+                  Kurikulum terintegrasi sains modern dengan nilai-nilai luhur akhlakul karimah
                 </span>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="text-pink flex-shrink-0">
-                  <IconCircleCheck size={20} />
+              <div className="flex items-start gap-3.5">
+                <div className="text-emerald-800 flex-shrink-0 mt-0.5">
+                  <IconCircleCheck size={21} />
                 </div>
-                <span className="text-[15px] font-semibold text-body">
-                  Dosen lulusan universitas ternama dalam dan luar negeri
+                <span className="text-[14.5px] font-medium text-body">
+                  Didukung para dosen dan guru besar lulusan universitas ternama dalam dan luar negeri
                 </span>
               </div>
             </div>
@@ -55,26 +56,28 @@ export default function Akreditasi() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="w-full max-w-sm bg-canvas border border-line rounded-2xl p-8 text-center shadow-[0_4px_20px_-4px_rgba(23,17,26,0.04)] relative overflow-hidden"
+              className="w-full max-w-sm bg-white border border-line rounded-2xl p-8 text-center shadow-[0_8px_30px_-6px_rgba(18,27,22,0.06)] relative overflow-hidden"
             >
-              <div className="absolute top-0 left-0 right-0 h-2 bg-pink" />
-              <div className="w-16 h-16 rounded-full bg-pink-soft border border-pink-border flex items-center justify-center text-pink mx-auto mb-6">
-                <IconAward size={36} />
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-900 via-gold to-emerald-900" />
+              <div className="w-16 h-16 rounded-full bg-gold-soft border border-gold-border flex items-center justify-center text-gold mx-auto mb-5 shadow-xs">
+                <IconAward size={34} />
               </div>
-              <h3 className="text-2xl font-bold text-ink">BAIK SEKALI</h3>
-              <p className="text-xs font-semibold text-muted tracking-wider uppercase mt-1">
+              <h3 className="font-serif text-2xl font-bold text-emerald-950 tracking-wide">
+                BAIK SEKALI
+              </h3>
+              <p className="text-[11.5px] font-medium text-muted tracking-wider uppercase mt-1">
                 Peringkat Akreditasi Institusi
               </p>
               <div className="my-6 border-t border-line border-dashed" />
               <p className="text-xs text-muted leading-relaxed">
-                Keputusan BAN-PT
+                Badan Akreditasi Nasional Perguruan Tinggi
                 <br />
-                <span className="font-bold text-ink text-sm block mt-1">
+                <span className="font-semibold text-ink text-[13px] block mt-1.5">
                   No. 377/SK/BAN-PT/Ak/PT/V/2023
                 </span>
               </p>
-              <div className="mt-6 px-4 py-2 rounded-lg bg-paper border border-line text-[11px] font-semibold text-muted">
-                Berlaku hingga 24 Mei 2028
+              <div className="mt-6 px-4 py-2 rounded-xl bg-emerald-50 border border-emerald-200/70 text-[11.5px] font-medium text-emerald-900">
+                Berlaku Sah hingga 24 Mei 2028
               </div>
             </motion.div>
           </div>
