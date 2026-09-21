@@ -15,12 +15,17 @@ export const contentSchema = z.object({
   admissions: z.object({ ...heading, buttonLabel: text, steps: z.array(z.object({ title: text, desc: paragraph }).strict()).min(1).max(10) }).strict(),
   pathways: z.object({ ...heading, items: z.array(z.object({ title: text, subtitle: text, desc: paragraph, details: z.array(text).min(1).max(10), badge: text, featured: z.boolean() }).strict()).min(1).max(10) }).strict(),
   contact: z.object({ address: paragraph, whatsapp: text, whatsappUrl: httpsUrl.refine(value => URL.canParse(value) && new URL(value).hostname === "wa.me" && /^\/\d{8,16}$/.test(new URL(value).pathname), "Gunakan https://wa.me/nomor"), email: z.string().email().max(254), hours: text, closed: text }).strict(),
-  chatbot: z.object({ greeting: paragraph, questions: z.array(text).min(1).max(8), knowledge: z.string().trim().min(1).max(80000) }).strict(),
+  chatbot: z.object({ greeting: paragraph, questions: z.array(text).min(1).max(8), knowledge: z.string().trim().min(1).max(80000), lockedDormitories: z.string().trim().min(1).max(50000).optional() }).strict(),
 }).strict();
 
 export type SiteContent = z.infer<typeof contentSchema>;
-export type PublicContent = Omit<SiteContent, "chatbot"> & { chatbot: Omit<SiteContent["chatbot"], "knowledge"> };
+export type AdminContent = Omit<SiteContent, "chatbot"> & { chatbot: Omit<SiteContent["chatbot"], "knowledge" | "lockedDormitories"> & { knowledge: string } };
+export type PublicContent = Omit<SiteContent, "chatbot"> & { chatbot: Omit<SiteContent["chatbot"], "knowledge" | "lockedDormitories"> };
+export function adminContent(content: SiteContent): AdminContent {
+  const { lockedDormitories: _lockedDormitories, ...chatbot } = content.chatbot;
+  return { ...content, chatbot };
+}
 export function publicContent(content: SiteContent): PublicContent {
-  const { knowledge: _knowledge, ...chatbot } = content.chatbot;
+  const { knowledge: _knowledge, lockedDormitories: _lockedDormitories, ...chatbot } = content.chatbot;
   return { ...content, chatbot };
 }

@@ -6,6 +6,7 @@ import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { chromium } from "@playwright/test";
 import { defaultContent } from "../lib/default-content";
+import { LOCKED_DORMITORY_KNOWLEDGE } from "../lib/content-policy";
 
 async function main() {
   if (!process.env.FIRESTORE_EMULATOR_HOST || !process.env.FIREBASE_AUTH_EMULATOR_HOST) throw new Error("Run this test using Firebase emulators; live database use is forbidden.");
@@ -43,6 +44,7 @@ async function main() {
     await page.getByRole("button", { name: "Masuk", exact: true }).click();
     await page.waitForURL(origin + "/admin");
     await page.getByRole("heading", { name: "Identitas & tautan", exact: true }).waitFor();
+    assert.equal(await page.getByText("Asrama Chosyi'ah", { exact: false }).count(), 0);
     await page.screenshot({ path: "/tmp/unipdu-admin-editor.png", fullPage: true });
     await page.getByRole("button", { name: "Beranda utama", exact: true }).click();
     const badge = `Pendaftaran dibuka — verifikasi ${Date.now()}`;
@@ -75,8 +77,21 @@ async function main() {
     await page.getByRole("button", { name: "Simpan & publikasikan" }).click();
     await page.getByText("Perubahan berhasil dipublikasikan.", { exact: false }).waitFor();
     assert.equal((await db.collection("LandingPageContent").doc("main").get()).data()!.content.announcements.at(-1), "Pengumuman baru");
+    const current = (await db.collection("LandingPageContent").doc("main").get()).data()!;
+    const adminContentResponse = await api("/api/admin/content", "GET", undefined, cookie);
+    const adminContentPayload = await adminContentResponse.json();
+    assert.equal(adminContentPayload.content.chatbot.lockedDormitories, undefined);
+    assert.equal(adminContentPayload.content.chatbot.knowledge.includes("7. INFORMASI ASRAMA / PONDOK PESANTREN MAHASISWA:"), false);
+    const tampered = structuredClone(current.content);
+    tampered.chatbot.knowledge += "\n\n7. INFORMASI ASRAMA / PONDOK PESANTREN MAHASISWA:\n- Data palsu\n8. INFORMASI KONTAK & SEKRETARIAT:";
+    tampered.chatbot.lockedDormitories = "Data palsu";
+    const tamperResponse = await api("/api/admin/content", "PUT", { content: tampered, version: current.version }, cookie);
+    assert.equal(tamperResponse.status, 200);
+    const migrated = (await db.collection("LandingPageContent").doc("main").get()).data()!;
+    assert.equal(migrated.content.chatbot.lockedDormitories, LOCKED_DORMITORY_KNOWLEDGE);
+    assert.equal(migrated.content.chatbot.knowledge.includes("Data palsu"), false);
     assert.deepEqual(errors, []);
-    console.log("PASS: responsive editor and adding list items");
+    console.log("PASS: responsive editor, hidden dormitory content, and server-side lock");
 
     await db.collection("LandingPageAdmins").doc(admin.uid).update({ active: false });
     assert.equal((await api("/api/admin/content", "GET", undefined, cookie)).status, 401);

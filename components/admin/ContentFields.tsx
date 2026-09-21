@@ -5,7 +5,7 @@ const labels: Record<string, string> = {
   name: "Nama", university: "Nama universitas", description: "Deskripsi", registrationUrl: "URL pendaftaran", registrationLabel: "Teks tombol pendaftaran", metaTitle: "Judul di mesin pencari", metaDescription: "Deskripsi di mesin pencari",
   badge: "Label", title: "Judul", highlight: "Teks yang disorot", suffix: "Lanjutan judul", videoUrl: "URL video latar (MP4)", secondaryLabel: "Teks tombol program studi", value: "Nilai", label: "Keterangan",
   eyebrow: "Label bagian", faculties: "Fakultas", short: "Singkatan", programs: "Program studi", rating: "Peringkat", decree: "Nomor SK", authority: "Lembaga akreditasi", validUntil: "Masa berlaku", points: "Poin pendukung",
-  buttonLabel: "Teks tombol", steps: "Tahapan", desc: "Deskripsi", items: "Jalur", subtitle: "Subjudul", details: "Rincian", featured: "Sorot jalur ini", address: "Alamat", whatsapp: "Nomor WhatsApp (tampilan)", whatsappUrl: "URL WhatsApp", email: "Email", hours: "Jam pelayanan", closed: "Hari libur", greeting: "Pesan pembuka", questions: "Pertanyaan awal", knowledge: "Pengetahuan chatbot: biaya, beasiswa, asrama, dan ketentuan",
+  buttonLabel: "Teks tombol", steps: "Tahapan", desc: "Deskripsi", items: "Jalur", subtitle: "Subjudul", details: "Rincian", featured: "Sorot jalur ini", address: "Alamat", whatsapp: "Nomor WhatsApp (tampilan)", whatsappUrl: "URL WhatsApp", email: "Email", hours: "Jam pelayanan", closed: "Hari libur", greeting: "Pesan pembuka", questions: "Pertanyaan awal", knowledge: "Pengetahuan chatbot",
 };
 const limits: Record<string, number> = { announcements: 20, stats: 10, faculties: 20, programs: 40, points: 10, steps: 10, items: 10, details: 10, questions: 8 };
 function emptyLike(value: FieldValue): FieldValue {
@@ -17,6 +17,7 @@ function emptyLike(value: FieldValue): FieldValue {
 
 export default function ContentFields({ value, onChange, path, label }: { value: FieldValue; onChange: (value: FieldValue) => void; path: string; label?: string }) {
   const key = path.split(".").at(-1)!;
+  if (key === "lockedDormitories") return null;
   const title = label || labels[key] || key;
   const id = `field-${path}`;
   if (typeof value === "boolean") return <label htmlFor={id} className="flex items-center gap-3 text-sm py-2"><input id={id} type="checkbox" checked={value} onChange={event => onChange(event.target.checked)} className="accent-emerald-800 w-4 h-4" />{title}</label>;
@@ -25,7 +26,7 @@ export default function ContentFields({ value, onChange, path, label }: { value:
     const inputClass = "mt-2 block w-full rounded-xl border border-line bg-white px-3.5 py-3 text-sm font-normal text-ink focus:outline-emerald-800";
     return <label htmlFor={id} className="block text-sm font-medium text-body">{title}
       {multiline ? <textarea id={id} rows={key === "knowledge" ? 24 : 4} maxLength={key === "knowledge" ? 80000 : 5000} value={value} onChange={event => onChange(event.target.value)} className={inputClass} /> : <input id={id} type={key === "email" ? "email" : "text"} maxLength={500} value={value} onChange={event => onChange(event.target.value)} className={inputClass} />}
-      {key === "knowledge" && <span className="block text-xs text-muted mt-2">Informasi ini digunakan untuk menjawab pertanyaan pengunjung. Data bagian halaman yang dipublikasikan juga diberikan kepada chatbot.</span>}
+      {key === "knowledge" && <span className="block text-xs text-muted mt-2">Informasi ini digunakan untuk menjawab pertanyaan pengunjung. Sebagian informasi resmi dikelola terpusat oleh sistem.</span>}
       {key === "videoUrl" && <span className="block text-xs text-muted mt-2">Gunakan URL HTTPS video MP4 atau path video yang sudah tersedia, misalnya /DJI_0484.MP4.</span>}
     </label>;
   }
@@ -41,5 +42,5 @@ export default function ContentFields({ value, onChange, path, label }: { value:
     </div>)}
     <button type="button" disabled={value.length >= (limits[key] || 20)} className="rounded-xl border border-emerald-800/30 text-emerald-900 px-4 py-2 text-sm hover:bg-emerald-50 disabled:opacity-40" onClick={() => onChange([...value, emptyLike(value[0])])}>+ Tambah {title.toLowerCase()}</button>
   </div>;
-  return <div className="space-y-5">{Object.entries(value).map(([key, child]) => <ContentFields key={key} path={`${path}.${key}`} value={child} onChange={next => onChange({ ...value, [key]: next })} />)}</div>;
+  return <div className="space-y-5">{Object.entries(value).filter(([key]) => key !== "lockedDormitories").map(([key, child]) => <ContentFields key={key} path={`${path}.${key}`} value={child} onChange={next => onChange({ ...value, [key]: next })} />)}</div>;
 }

@@ -18,7 +18,7 @@ const sections: { key: keyof SiteContent; title: string; note: string }[] = [
   { key: "admissions", title: "Alur pendaftaran", note: "Tahapan pendaftaran calon mahasiswa baru." },
   { key: "pathways", title: "Jalur penerimaan", note: "Pilihan jalur, syarat, dan penjelasan seleksi." },
   { key: "contact", title: "Kontak & layanan", note: "Kontak resmi yang digunakan pengunjung untuk menghubungi PMB." },
-  { key: "chatbot", title: "Pengetahuan chatbot", note: "Kelola informasi biaya, beasiswa, asrama, dan jawaban PMB." },
+  { key: "chatbot", title: "Pengetahuan chatbot", note: "Kelola informasi biaya, beasiswa, dan jawaban PMB." },
 ];
 
 const extraSections: { key: "chatlogs" | "account"; title: string; note: string }[] = [

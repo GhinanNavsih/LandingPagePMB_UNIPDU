@@ -17,6 +17,8 @@ Enable Email/Password in Firebase Authentication. Set `ADMIN_EMAIL` and `ADMIN_P
 
 In `/admin`, edit a section, then choose **Simpan & publikasikan**. The server validates all fields and atomically saves the content with an audit entry. Version checks reject overwrites from stale tabs. New page loads and chatbot requests read the saved content immediately. Already-open visitor pages receive changes when refreshed. Admins can change their own password under **Akun admin**; password changes and logout revoke existing sessions.
 
+The dormitory information is centrally managed. It is omitted from the admin response and editor, and the server restores the canonical section on every content read and write, so a direct request cannot replace it. To apply this policy to an existing database document, run `npm run admin:lock-dormitories` once with the same Firebase credentials used for provisioning.
+
 ## Firebase App Hosting
 
 The App Hosting backend `pmb-landing` is associated with the existing web app `1:639852479553:web:cdee5d74ae41f951a032c0` in `pmbunipdu-d6a41`, with `us-central1` and Node.js 22. `apphosting.yaml` and `firebase.json` configure local source deployment. The project must be on the Blaze plan before App Hosting can create a rollout; after billing is enabled, run `firebase deploy --only apphosting:pmb-landing`. The Firebase Admin SDK uses the backend's Application Default Credentials; do not upload a private key. The runtime service account needs Firestore read/write and Firebase Authentication administration access (including session-cookie creation and revocation).
