@@ -1,10 +1,13 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import { useState, useEffect } from "react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import Image from "next/image";
 
 export default function Navbar() {
+  const content = useContent();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -48,10 +51,10 @@ export default function Navbar() {
           />
           <div className="flex flex-col">
             <span className={`font-serif text-[17px] font-semibold leading-tight transition-colors duration-300 ${isScrolled ? "text-ink" : "text-white"}`}>
-              PMB UNIPDU
+              {content.site.name}
             </span>
             <span className={`text-[11px] tracking-wide font-medium transition-colors duration-300 ${isScrolled ? "text-muted" : "text-white/75"}`}>
-              Universitas Pesantren Tinggi Darul 'Ulum
+              {content.site.university}
             </span>
           </div>
         </a>
@@ -74,7 +77,7 @@ export default function Navbar() {
             ))}
           </div>
           <a
-            href="https://pmb.unipdu.ac.id"
+            href={content.site.registrationUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={`px-5 py-2.5 rounded-xl font-medium text-[13.5px] transition-all duration-200 shadow-sm active:scale-[0.98] ${
@@ -83,7 +86,7 @@ export default function Navbar() {
                 : "bg-gold hover:bg-gold-dark text-emerald-950 font-semibold shadow-gold/20 hover:shadow-md"
             }`}
           >
-            Daftar Sekarang
+            {content.site.registrationLabel}
           </a>
         </div>
 
@@ -111,13 +114,13 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="https://pmb.unipdu.ac.id"
+            href={content.site.registrationUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsOpen(false)}
             className="w-full text-center mt-2 px-5 py-3 rounded-xl bg-emerald-800 text-white font-medium text-[14px] hover:bg-emerald-900 transition-colors shadow-sm"
           >
-            Daftar Sekarang
+            {content.site.registrationLabel}
           </a>
         </div>
       )}

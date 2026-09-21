@@ -1,0 +1,18 @@
+{
+  "apphosting": [
+    {
+      "backendId": "pmb-landing",
+      "rootDir": ".",
+      "ignore": [
+        ".git",
+        "node_modules",
+        ".next",
+        ".next-*",
+        "test-results",
+        "playwright-report",
+        "firebase-debug.log",
+        "firestore-debug.log"
+      ]
+    }
+  ]
+}

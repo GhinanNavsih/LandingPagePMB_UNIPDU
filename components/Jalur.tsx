@@ -1,48 +1,14 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import { motion } from "framer-motion";
 import { IconFileSearch, IconUsers, IconBriefcase, IconCircleCheck } from "@tabler/icons-react";
 
 export default function Jalur() {
-  const pathways = [
-    {
-      icon: IconFileSearch,
-      title: "Jalur PMDK",
-      subtitle: "Penelusuran Minat & Kemampuan",
-      desc: "Seleksi masuk tanpa tes tertulis berbasis prestasi akademik (nilai rapor) maupun prestasi non-akademik.",
-      details: [
-        "Seleksi berdasarkan Nilai Rapor (Sem. 1-5)",
-        "Kesempatan mendapat Beasiswa Khusus",
-        "Terbuka untuk lulusan 2 tahun terakhir",
-      ],
-      badge: "Prestasi & Rapor",
-    },
-    {
-      icon: IconUsers,
-      title: "Jalur Reguler",
-      subtitle: "Seleksi Umum",
-      desc: "Jalur penerimaan umum bagi lulusan SMA/SMK/MA sederajat melalui tes potensi akademik secara online.",
-      details: [
-        "Tes Potensi Akademik (TPA) online",
-        "Tersedia berbagai pilihan kelas",
-        "Akses program KIP Kuliah & Beasiswa Mitra",
-      ],
-      badge: "Terbuka Umum",
-      featured: true,
-    },
-    {
-      icon: IconBriefcase,
-      title: "Jalur RPL",
-      subtitle: "Rekognisi Pembelajaran Lampau",
-      desc: "Jalur khusus bagi pekerja/profesional untuk mengonversi pengalaman kerja menjadi SKS akademik.",
-      details: [
-        "Konversi masa kerja/pelatihan menjadi SKS",
-        "Masa studi S1 lebih singkat (~2 tahun)",
-        "Jadwal kuliah fleksibel (hybrid/malam)",
-      ],
-      badge: "Pekerja / Lulusan D3",
-    },
-  ];
+  const content = useContent();
+  const icons = [IconFileSearch, IconUsers, IconBriefcase];
+  const pathways = content.pathways.items.map((item, index) => ({ ...item, icon: icons[index % icons.length] }));
 
   return (
     <section id="jalur" className="py-24 bg-paper">
@@ -51,15 +17,13 @@ export default function Jalur() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-emerald-800 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
             <span className="text-gold text-xs">✦</span>
-            <span>Jalur Penerimaan</span>
+            <span>{content.pathways.eyebrow}</span>
             <span className="text-gold text-xs">✦</span>
           </span>
           <h2 className="font-serif text-3xl md:text-[42px] font-normal text-ink mt-3 leading-tight">
-            Pilihan <span className="italic font-normal text-emerald-800">Jalur Masuk</span> Calon Mahasiswa
+            {content.pathways.title} <span className="italic font-normal text-emerald-800">{content.pathways.highlight}</span> {content.pathways.suffix}
           </h2>
-          <p className="text-[15.5px] text-muted mt-4 leading-relaxed">
-            Tentukan skema seleksi yang paling sesuai dengan kualifikasi akademik, prestasi, maupun kebutuhan profesional Anda.
-          </p>
+          <p className="text-[15.5px] text-muted mt-4 leading-relaxed">{content.pathways.description}</p>
         </div>
 
         {/* Grid Pathways */}
@@ -132,7 +96,7 @@ export default function Jalur() {
                 {/* Action button */}
                 <div className="mt-8">
                   <a
-                    href="https://pmb.unipdu.ac.id"
+                    href={content.site.registrationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`w-full text-center block px-4 py-3 rounded-xl font-medium text-[14px] transition-all duration-200 active:scale-[0.98] ${

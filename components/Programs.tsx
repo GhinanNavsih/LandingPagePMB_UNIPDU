@@ -1,5 +1,7 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,70 +14,11 @@ import {
 } from "@tabler/icons-react";
 
 export default function Programs() {
-  const faculties = [
-    {
-      id: "fai",
-      name: "Agama Islam",
-      short: "FAI",
-      icon: IconBook,
-      color: "bg-emerald-50 text-emerald-600 border-emerald-100",
-      programs: [
-        "S1 Pendidikan Agama Islam (S.Pd.)",
-        "S1 Hukum Keluarga (S.H.)",
-        "S1 PGMI (S.Pd.I)",
-      ],
-    },
-    {
-      id: "fik",
-      name: "Ilmu Kesehatan",
-      short: "FIK",
-      icon: IconActivity,
-      color: "bg-sky-50 text-sky-600 border-sky-100",
-      programs: [
-        "S1 Ilmu Keperawatan (S.Kep.)",
-        "S1 Kebidanan (S.Keb.)",
-        "Profesi Ners (Ners)",
-        "Profesi Bidan (Bid.)",
-      ],
-    },
-    {
-      id: "fbbp",
-      name: "Bisnis & Pendidikan",
-      short: "FBBP",
-      icon: IconBriefcase,
-      color: "bg-indigo-50 text-indigo-600 border-indigo-100",
-      programs: [
-        "S1 Administrasi Bisnis (S.AB.)",
-        "S1 Bahasa Inggris Bisnis (S.S.)",
-        "S1 Pendidikan Bahasa Inggris (S.Pd.)",
-        "S1 Pendidikan Matematika (S.Pd.)",
-      ],
-    },
-    {
-      id: "fst",
-      name: "Sains & Teknologi",
-      short: "FST",
-      icon: IconCpu,
-      color: "bg-amber-50 text-amber-600 border-amber-100",
-      programs: [
-        "S1 Sistem Informasi (S.Kom.)",
-        "S1 Matematika Bisnis (S.Mat.)",
-      ],
-    },
-    {
-      id: "s2",
-      name: "Pascasarjana",
-      short: "S2",
-      icon: IconSchool,
-      color: "bg-purple-50 text-purple-600 border-purple-100",
-      programs: [
-        "S2 Manajemen Pendidikan Islam (M.Pd.)",
-        "S2 Kesehatan Masyarakat (M.Kes.)",
-      ],
-    },
-  ];
+  const content = useContent();
+  const icons = [IconBook, IconActivity, IconBriefcase, IconCpu, IconSchool];
+  const faculties = content.programs.faculties.map((faculty, index) => ({ ...faculty, id: String(index), icon: icons[index % icons.length] }));
 
-  const [activeTab, setActiveTab] = useState("fai");
+  const [activeTab, setActiveTab] = useState("0");
   const activeFaculty = faculties.find((f) => f.id === activeTab) || faculties[0];
 
   return (
@@ -85,15 +28,13 @@ export default function Programs() {
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-emerald-800 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
             <span className="text-gold text-xs">✦</span>
-            <span>Program Pendidikan</span>
+            <span>{content.programs.eyebrow}</span>
             <span className="text-gold text-xs">✦</span>
           </span>
           <h2 className="font-serif text-3xl md:text-[42px] font-normal text-ink mt-3 leading-tight">
-            Temukan <span className="italic font-normal text-emerald-800">Bidang Keilmuan</span> Terbaikmu
+            {content.programs.title} <span className="italic font-normal text-emerald-800">{content.programs.highlight}</span> {content.programs.suffix}
           </h2>
-          <p className="text-[15.5px] text-muted mt-4 leading-relaxed">
-            UNIPDU Jombang menyelenggarakan 15 program studi terakreditasi untuk jenjang Sarjana (S1), Pendidikan Profesi, hingga Pascasarjana (S2).
-          </p>
+          <p className="text-[15.5px] text-muted mt-4 leading-relaxed">{content.programs.description}</p>
         </div>
 
         {/* Desktop Tabs */}
@@ -145,7 +86,7 @@ export default function Programs() {
                       Fakultas {activeFaculty.name}
                     </h3>
                     <p className="text-xs text-muted mt-1">
-                      Universitas Pesantren Tinggi Darul 'Ulum Jombang
+                      {content.site.university}
                     </p>
                   </div>
                 </div>

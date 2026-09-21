@@ -1,15 +1,12 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import { motion } from "framer-motion";
 
 export default function StatsBar() {
-  const stats = [
-    { value: "5", label: "Fakultas Pilihan" },
-    { value: "15+", label: "Program Studi" },
-    { value: "8", label: "Program Beasiswa" },
-    { value: "100+", label: "Dosen Profesional" },
-    { value: "Baik Sekali", label: "Akreditasi Institusi" },
-  ];
+  const content = useContent();
+  const stats = content.stats;
 
   return (
     <section className="py-14 bg-paper border-b border-line">

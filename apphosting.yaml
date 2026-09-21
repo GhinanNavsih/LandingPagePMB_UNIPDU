@@ -1,0 +1,11 @@
+runConfig:
+  minInstances: 0
+env:
+  - variable: FIREBASE_PROJECT_ID
+    value: pmbunipdu-d6a41
+    availability:
+      - BUILD
+      - RUNTIME
+# Connect the existing Firebase web app when creating the App Hosting backend.
+# Its FIREBASE_WEBAPP_CONFIG supplies the public web API key automatically.
+# Configure GEMINI_API_KEY as a secret in the backend environment.

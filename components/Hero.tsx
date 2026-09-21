@@ -1,9 +1,12 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import { motion } from "framer-motion";
 import { IconArrowRight } from "@tabler/icons-react";
 
 export default function Hero() {
+  const content = useContent();
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
       {/* Video Background */}
@@ -14,7 +17,7 @@ export default function Hero() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="/DJI_0484.MP4" type="video/mp4" />
+        <source src={content.hero.videoUrl} type="video/mp4" />
       </video>
 
       {/* Cinematic Islamic Emerald Overlay for readability and prestige */}
@@ -31,7 +34,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/60 backdrop-blur-md border border-gold/30 text-amber-200 text-xs font-medium tracking-wide mb-6 shadow-sm"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span>Penerimaan Mahasiswa Baru • T.A. 2026/2027</span>
+          <span>{content.hero.badge}</span>
         </motion.div>
 
         {/* Headline */}
@@ -41,8 +44,8 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-serif text-4xl sm:text-5xl md:text-[62px] font-normal text-white leading-[1.18] max-w-4xl mx-auto drop-shadow-md"
         >
-          Membuka Masa Depan,{" "}
-          <span className="italic font-normal text-amber-300">Berkarakter Pesantren</span> & Unggul
+          {content.hero.title}{" "}
+          <span className="italic font-normal text-amber-300">{content.hero.highlight}</span> {content.hero.suffix}
         </motion.h1>
 
         {/* Subhead */}
@@ -52,7 +55,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-[16px] md:text-[18px] text-emerald-50/85 leading-relaxed max-w-2xl mx-auto mt-6"
         >
-          Universitas Pesantren Tinggi Darul 'Ulum (UNIPDU) Jombang memadukan integritas sains modern dengan kedalaman akhlak mulia untuk mencetak generasi berdaya saing global.
+          {content.hero.description}
         </motion.p>
 
         {/* Call to Actions */}
@@ -63,19 +66,19 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
         >
           <a
-            href="https://pmb.unipdu.ac.id"
+            href={content.site.registrationUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[15px] transition-all duration-200 shadow-lg shadow-gold/20 hover:shadow-xl flex items-center justify-center gap-2.5 group active:scale-[0.98]"
           >
-            Daftar Sekarang
+            {content.site.registrationLabel}
             <IconArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href="#programs"
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium text-[15px] backdrop-blur-md transition-all duration-200 flex items-center justify-center active:scale-[0.98]"
           >
-            Pilihan Program Studi
+            {content.hero.secondaryLabel}
           </a>
         </motion.div>
 
@@ -88,17 +91,12 @@ export default function Hero() {
         >
           <div className="flex flex-col items-center">
             <span className="text-[11px] text-emerald-100/70 tracking-wide">Akreditasi Institusi</span>
-            <span className="font-serif text-[15px] font-semibold text-amber-200">Baik Sekali</span>
+            <span className="font-serif text-[15px] font-semibold text-amber-200">{content.accreditation.rating}</span>
           </div>
           <div className="w-px h-7 bg-white/15" />
           <div className="flex flex-col items-center">
             <span className="text-[11px] text-emerald-100/70 tracking-wide">SK BAN-PT</span>
-            <span className="text-xs font-semibold text-white/90">No. 377/SK/BAN-PT/2023</span>
-          </div>
-          <div className="w-px h-7 bg-white/15" />
-          <div className="flex flex-col items-center">
-            <span className="text-[11px] text-emerald-100/70 tracking-wide">Pondok Pesantren</span>
-            <span className="font-serif text-[15px] font-semibold text-white/90">Darul 'Ulum Jombang</span>
+            <span className="text-xs font-semibold text-white/90">{content.accreditation.decree}</span>
           </div>
         </motion.div>
       </div>

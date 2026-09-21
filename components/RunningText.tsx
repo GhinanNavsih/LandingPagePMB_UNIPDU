@@ -1,14 +1,10 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 export default function RunningText() {
-  const announcements = [
-    "Penerimaan Mahasiswa Baru UNIPDU T.A. 2026/2027 Resmi Dibuka",
-    "Akreditasi Institusi \"Baik Sekali\" oleh BAN-PT (SK No. 377/SK/BAN-PT/Ak/PT/V/2023)",
-    "5 Fakultas Terpadu & 15 Program Studi Sarjana (S1), Profesi, hingga Pascasarjana (S2)",
-    "Tersedia 8 Skema Beasiswa Unggulan Termasuk KIP-K dan Beasiswa Mitra",
-    "Jalur Seleksi: PMDK (Prestasi & Rapor), Reguler (TPA Online), dan RPL (Pekerja / D3)",
-    "Pendaftaran Berbasis Online Penuh Melalui Portal Resmi pmb.unipdu.ac.id",
-  ];
+  const content = useContent();
+  const announcements = content.announcements;
 
   // Duplicate for seamless loop
   const items = [...announcements, ...announcements];

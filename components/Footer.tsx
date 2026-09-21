@@ -1,9 +1,12 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import Image from "next/image";
 import { IconBrandWhatsapp, IconMail, IconMapPin, IconClock } from "@tabler/icons-react";
 
 export default function Footer() {
+  const content = useContent();
   return (
     <footer id="kontak" className="bg-emerald-950 text-white border-t border-emerald-900/80 pt-16 pb-10">
       <div className="max-w-[1080px] mx-auto px-6">
@@ -20,15 +23,15 @@ export default function Footer() {
               />
               <div className="flex flex-col">
                 <span className="font-serif text-lg font-semibold text-white tracking-tight">
-                  PMB UNIPDU
+                  {content.site.name}
                 </span>
                 <span className="text-[11px] font-medium text-emerald-100/70">
-                  Universitas Pesantren Tinggi Darul 'Ulum
+                  {content.site.university}
                 </span>
               </div>
             </a>
             <p className="text-[13.5px] text-emerald-100/70 leading-relaxed max-w-sm">
-              Mendidik generasi sarjana dan profesional yang memadukan keunggulan ilmu pengetahuan modern dengan kedalaman spiritualitas dan akhlakul karimah pesantren.
+              {content.site.description}
             </p>
           </div>
 
@@ -77,7 +80,7 @@ export default function Footer() {
                   <IconMapPin size={18} />
                 </span>
                 <span className="leading-snug">
-                  Kompleks Pondok Pesantren Darul 'Ulum Peterongan, Jombang, Jawa Timur 61481
+                  {content.contact.address}
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -85,20 +88,20 @@ export default function Footer() {
                   <IconBrandWhatsapp size={18} />
                 </span>
                 <a
-                  href="https://wa.me/62895804182000"
+                  href={content.contact.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-amber-200 transition-colors font-medium"
                 >
-                  0895 8041 82000 (WhatsApp PMB)
+                  {content.contact.whatsapp} (WhatsApp PMB)
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <span className="text-gold flex-shrink-0">
                   <IconMail size={18} />
                 </span>
-                <a href="mailto:pmb@unipdu.ac.id" className="hover:text-amber-200 transition-colors font-medium">
-                  pmb@unipdu.ac.id
+                <a href={`mailto:${content.contact.email}`} className="hover:text-amber-200 transition-colors font-medium">
+                  {content.contact.email}
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -106,9 +109,9 @@ export default function Footer() {
                   <IconClock size={18} />
                 </span>
                 <span className="leading-snug text-xs text-emerald-100/70">
-                  Pelayanan: Sabtu–Kamis: 08.00–14.00 WIB
+                  {content.contact.hours}
                   <br />
-                  <span className="text-amber-200 font-medium">Hari Jumat Libur</span>
+                  <span className="text-amber-200 font-medium">{content.contact.closed}</span>
                 </span>
               </li>
             </ul>
@@ -118,10 +121,10 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-emerald-100/60 font-medium">
-            &copy; {new Date().getFullYear()} Universitas Pesantren Tinggi Darul 'Ulum (UNIPDU). Hak Cipta Dilindungi.
+            &copy; {new Date().getFullYear()} {content.site.university}. Hak Cipta Dilindungi.
           </p>
           <div className="flex gap-4">
-            <span className="text-xs text-amber-200/90 font-medium">Terakreditasi Baik Sekali • BAN-PT</span>
+            <span className="text-xs text-amber-200/90 font-medium">Terakreditasi {content.accreditation.rating} • BAN-PT</span>
           </div>
         </div>
       </div>

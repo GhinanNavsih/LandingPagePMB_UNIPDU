@@ -5,21 +5,40 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "admin:provision": "tsx scripts/provision-admin.ts",
+    "test:integration": "firebase emulators:exec --only auth,firestore --project demo-unipdu-landing --config tests/firebase.json \"tsx tests/admin-integration.ts\""
   },
   "dependencies": {
-    "next": "14.2.5",
+    "@google/genai": "^2.23.0",
+    "@tabler/icons-react": "3.11.0",
+    "firebase-admin": "^14.4.0",
+    "framer-motion": "11.3.19",
+    "next": "^15.5.25",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "framer-motion": "11.3.19",
-    "@tabler/icons-react": "3.11.0"
+    "server-only": "^0.0.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "20.14.10",
     "@types/react": "18.3.3",
-    "typescript": "5.5.3",
-    "tailwindcss": "3.4.7",
     "autoprefixer": "10.4.19",
-    "postcss": "8.4.39"
+    "postcss": "^8.5.28",
+    "tailwindcss": "3.4.7",
+    "tsx": "^4.23.15",
+    "typescript": "5.5.3"
+  },
+  "overrides": {
+    "postcss": "$postcss",
+    "gaxios": {
+      "uuid": "^11.1.1"
+    }
+  },
+  "engines": {
+    "node": "22"
   }
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { useContent } from "./ContentProvider";
+
 import { motion } from "framer-motion";
 import {
   IconUserPlus,
@@ -10,33 +12,9 @@ import {
 } from "@tabler/icons-react";
 
 export default function PMB() {
-  const steps = [
-    {
-      icon: IconUserPlus,
-      title: "Registrasi Akun",
-      desc: "Buat akun calon mahasiswa di portal pendaftaran dengan email aktif.",
-    },
-    {
-      icon: IconCreditCard,
-      title: "Biaya Pendaftaran",
-      desc: "Lakukan pembayaran biaya pendaftaran secara online untuk aktivasi formulir.",
-    },
-    {
-      icon: IconFileText,
-      title: "Lengkapi Berkas & Biodata",
-      desc: "Isi biodata lengkap dan unggah dokumen pendukung seperti scan Ijazah, Rapor, dan KK.",
-    },
-    {
-      icon: IconClipboardCheck,
-      title: "Ujian Seleksi (Online)",
-      desc: "Ikuti ujian seleksi online sesuai jadwal dan program studi yang dipilih.",
-    },
-    {
-      icon: IconConfetti,
-      title: "Daftar Ulang & Kelulusan",
-      desc: "Lihat pengumuman kelulusan di dashboard, lalu lakukan proses daftar ulang.",
-    },
-  ];
+  const content = useContent();
+  const icons = [IconUserPlus, IconCreditCard, IconFileText, IconClipboardCheck, IconConfetti];
+  const steps = content.admissions.steps.map((step, index) => ({ ...step, icon: icons[index % icons.length] }));
 
   return (
     <section id="pmb" className="py-24 bg-gradient-to-b from-emerald-950 via-[#07241a] to-emerald-950 text-white relative overflow-hidden border-b border-emerald-900/60">
@@ -48,15 +26,13 @@ export default function PMB() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-amber-300 font-semibold text-xs tracking-widest uppercase inline-flex items-center gap-2">
             <span className="text-gold text-xs">✦</span>
-            <span>Alur Pendaftaran</span>
+            <span>{content.admissions.eyebrow}</span>
             <span className="text-gold text-xs">✦</span>
           </span>
           <h2 className="font-serif text-3xl md:text-[42px] font-normal text-white mt-3 leading-tight">
-            Alur Penerimaan Online di <span className="italic font-normal text-amber-300">UNIPDU</span>
+            {content.admissions.title} <span className="italic font-normal text-amber-300">{content.admissions.highlight}</span> {content.admissions.suffix}
           </h2>
-          <p className="text-[15.5px] text-emerald-100/75 mt-4 leading-relaxed">
-            Seluruh proses penerimaan mahasiswa baru dapat diakses secara fleksibel dari mana saja melalui 5 tahapan terpadu:
-          </p>
+          <p className="text-[15.5px] text-emerald-100/75 mt-4 leading-relaxed">{content.admissions.description}</p>
         </div>
 
         {/* Timeline Steps */}
@@ -100,12 +76,12 @@ export default function PMB() {
         {/* CTA Box */}
         <div className="mt-16 text-center">
           <a
-            href="https://pmb.unipdu.ac.id"
+            href={content.site.registrationUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[14.5px] transition-all duration-200 shadow-lg shadow-gold/20 active:scale-[0.98]"
           >
-            Mulai Registrasi Akun PMB Online
+            {content.admissions.buttonLabel}
           </a>
         </div>
       </div>
