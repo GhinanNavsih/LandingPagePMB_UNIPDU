@@ -10,7 +10,7 @@ function app() {
 }
 
 export const collections = {
-  content: "LandingPageContent", admins: "LandingPageAdmins", attempts: "LandingPageLoginAttempts", audit: "LandingPageAudit", sessions: "LandingPageSessions",
+  content: "LandingPageContent", admins: "LandingPageAdmins", attempts: "LandingPageLoginAttempts", audit: "LandingPageAudit", sessions: "LandingPageSessions", chatLogs: "LandingPageChatLogs",
 };
 export function database() { return getFirestore(app(), process.env.FIRESTORE_DATABASE_ID || "(default)"); }
 export function firebaseAuth() { return getAuth(app()); }

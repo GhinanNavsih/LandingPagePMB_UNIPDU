@@ -2,6 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 import { getContent } from "@/lib/content-store";
 import { chatbotInstruction } from "@/lib/chatbot-instruction";
+import { logChatQuery } from "@/lib/chat-logger";
 
 export async function POST(req: Request) {
   try {
@@ -34,6 +35,9 @@ export async function POST(req: Request) {
     const systemInstruction = chatbotInstruction(content);
     const configuredModel = process.env.GEMINI_MODEL || "gemini-flash-lite-latest";
 
+    const userMessages = messages.filter((m: { role: string; content: string }) => m.role === "user");
+    const lastUserQuestion = userMessages[userMessages.length - 1]?.content || "";
+
     // Format conversation history for Gemini API
     const formattedContents = messages.map((m: { role: string; content: string }) => ({
       role: m.role === "assistant" ? "model" : "user",
@@ -50,10 +54,22 @@ export async function POST(req: Request) {
         },
       });
 
+      const replyText =
+        response.text ||
+        `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`;
+
+      logChatQuery({
+        question: lastUserQuestion,
+        reply: replyText,
+        status: response.text ? "answered" : "fallback",
+        hasContactReferral:
+          replyText.includes(content.contact.whatsapp) ||
+          replyText.toLowerCase().includes("whatsapp") ||
+          replyText.toLowerCase().includes("sekretariat"),
+      }).catch(err => console.warn("Chat log recording skipped:", err));
+
       return NextResponse.json({
-        reply:
-          response.text ||
-          `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`,
+        reply: replyText,
       });
     } catch (primaryError: any) {
       console.warn(
@@ -72,10 +88,22 @@ export async function POST(req: Request) {
           },
         });
 
+        const fallbackReply =
+          fallbackResponse.text ||
+          `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`;
+
+        logChatQuery({
+          question: lastUserQuestion,
+          reply: fallbackReply,
+          status: fallbackResponse.text ? "answered" : "fallback",
+          hasContactReferral:
+            fallbackReply.includes(content.contact.whatsapp) ||
+            fallbackReply.toLowerCase().includes("whatsapp") ||
+            fallbackReply.toLowerCase().includes("sekretariat"),
+        }).catch(err => console.warn("Chat log recording skipped:", err));
+
         return NextResponse.json({
-          reply:
-            fallbackResponse.text ||
-            `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`,
+          reply: fallbackReply,
         });
       }
 
