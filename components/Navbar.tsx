@@ -78,8 +78,6 @@ export default function Navbar() {
           </div>
           <a
             href={content.site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className={`px-5 py-2.5 rounded-xl font-medium text-[13.5px] transition-all duration-200 shadow-sm active:scale-[0.98] ${
               isScrolled
                 ? "bg-emerald-800 hover:bg-emerald-900 text-white shadow-emerald-900/10 hover:shadow-md"
@@ -115,8 +113,6 @@ export default function Navbar() {
           ))}
           <a
             href={content.site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             onClick={() => setIsOpen(false)}
             className="w-full text-center mt-2 px-5 py-3 rounded-xl bg-emerald-800 text-white font-medium text-[14px] hover:bg-emerald-900 transition-colors shadow-sm"
           >
@@ -127,4 +123,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

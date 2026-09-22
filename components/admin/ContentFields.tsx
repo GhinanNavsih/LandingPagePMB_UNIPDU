@@ -2,7 +2,7 @@
 
 export type FieldValue = string | boolean | FieldValue[] | { [key: string]: FieldValue };
 const labels: Record<string, string> = {
-  name: "Nama", university: "Nama universitas", description: "Deskripsi", registrationUrl: "URL pendaftaran", registrationLabel: "Teks tombol pendaftaran", metaTitle: "Judul di mesin pencari", metaDescription: "Deskripsi di mesin pencari",
+  name: "Nama", university: "Nama universitas", description: "Deskripsi", registrationUrl: "Path atau URL pendaftaran", registrationLabel: "Teks tombol pendaftaran", metaTitle: "Judul di mesin pencari", metaDescription: "Deskripsi di mesin pencari",
   badge: "Label", title: "Judul", highlight: "Teks yang disorot", suffix: "Lanjutan judul", videoUrl: "URL video latar (MP4)", secondaryLabel: "Teks tombol program studi", value: "Nilai", label: "Keterangan",
   eyebrow: "Label bagian", faculties: "Fakultas", short: "Singkatan", programs: "Program studi", rating: "Peringkat", decree: "Nomor SK", authority: "Lembaga akreditasi", validUntil: "Masa berlaku", points: "Poin pendukung",
   buttonLabel: "Teks tombol", steps: "Tahapan", desc: "Deskripsi", items: "Jalur", subtitle: "Subjudul", details: "Rincian", featured: "Sorot jalur ini", address: "Alamat", whatsapp: "Nomor WhatsApp (tampilan)", whatsappUrl: "URL WhatsApp", email: "Email", hours: "Jam pelayanan", closed: "Hari libur", greeting: "Pesan pembuka", questions: "Pertanyaan awal", knowledge: "Pengetahuan chatbot",

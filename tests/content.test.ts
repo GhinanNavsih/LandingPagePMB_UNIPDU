@@ -7,6 +7,7 @@ import { chatbotInstruction } from "../lib/chatbot-instruction";
 
 test("existing landing information is valid and private chatbot instructions stay server-side", () => {
   const content = contentSchema.parse(defaultContent);
+  assert.equal(content.site.registrationUrl, "/pendaftaran");
   assert.ok(content.chatbot.knowledge.includes("RINCIAN BIAYA"));
   const normalized = normalizeContent(content);
   assert.equal(normalized.chatbot.knowledge.includes("7. INFORMASI ASRAMA / PONDOK PESANTREN MAHASISWA:"), false);

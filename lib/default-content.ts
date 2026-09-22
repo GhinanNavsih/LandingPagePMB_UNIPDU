@@ -6,7 +6,7 @@ export const defaultContent: SiteContent = {
     "name": "PMB UNIPDU",
     "university": "Universitas Pesantren Tinggi Darul 'Ulum",
     "description": "Mendidik generasi sarjana dan profesional yang memadukan keunggulan ilmu pengetahuan modern dengan kedalaman spiritualitas dan akhlakul karimah pesantren.",
-    "registrationUrl": "https://pmb.unipdu.ac.id",
+    "registrationUrl": "/pendaftaran",
     "registrationLabel": "Daftar Sekarang",
     "metaTitle": "UNIPDU — Universitas Pesantren Tinggi Darul 'Ulum",
     "metaDescription": "Toward World Class Islamic University. Universitas berbasis pesantren, berwawasan entrepreneurship di Jombang, Jawa Timur."

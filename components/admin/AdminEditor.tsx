@@ -5,8 +5,9 @@ import type { ContentRecord } from "@/lib/content-store";
 import { contentSchema, type SiteContent } from "@/lib/content-schema";
 import ContentFields, { type FieldValue } from "./ContentFields";
 import ChatLogViewer from "./ChatLogViewer";
+import ApplicationViewer from "./ApplicationViewer";
 
-type ActiveTab = keyof SiteContent | "account" | "chatlogs";
+type ActiveTab = keyof SiteContent | "account" | "chatlogs" | "applications";
 
 const sections: { key: keyof SiteContent; title: string; note: string }[] = [
   { key: "site", title: "Identitas & tautan", note: "Identitas kampus, tombol pendaftaran, dan informasi mesin pencari." },
@@ -21,7 +22,8 @@ const sections: { key: keyof SiteContent; title: string; note: string }[] = [
   { key: "chatbot", title: "Pengetahuan chatbot", note: "Kelola informasi biaya, beasiswa, dan jawaban PMB." },
 ];
 
-const extraSections: { key: "chatlogs" | "account"; title: string; note: string }[] = [
+const extraSections: { key: "applications" | "chatlogs" | "account"; title: string; note: string }[] = [
+  { key: "applications", title: "Data pendaftar", note: "Lihat pendaftaran mahasiswa baru yang masuk dari formulir online." },
   { key: "chatlogs", title: "Log Pertanyaan Chatbot", note: "Pantau riwayat pertanyaan calon mahasiswa, tren kata kunci, dan topik yang perlu ditambahkan ke knowledge base." },
   { key: "account", title: "Akun admin", note: "Ganti kata sandi untuk akun Anda. Setelah berhasil, semua sesi harus masuk kembali." },
 ];
@@ -116,11 +118,11 @@ export default function AdminEditor({ initial, email }: { initial: ContentRecord
           {active === "account" ? <form onSubmit={password} className="space-y-5 max-w-md"><fieldset disabled={!!busy || dirty} className="space-y-5 disabled:opacity-50">
             {[["currentPassword", "Kata sandi saat ini"], ["newPassword", "Kata sandi baru (minimal 10 karakter)"], ["confirm", "Konfirmasi kata sandi baru"]].map(([name, label]) => <label key={name} className="block text-sm font-medium">{label}<input name={name} type="password" autoComplete={name === "currentPassword" ? "current-password" : "new-password"} required minLength={name === "currentPassword" ? 1 : 10} maxLength={256} className="mt-2 w-full rounded-xl border border-line px-4 py-3" /></label>)}
             <button className="px-5 py-3 rounded-xl bg-emerald-900 text-white text-sm">Perbarui kata sandi</button>
-          </fieldset>{dirty && <p className="text-sm text-amber-800">Publikasikan atau buang perubahan konten sebelum mengganti kata sandi.</p>}</form> : active === "chatlogs" ? <ChatLogViewer /> : <fieldset disabled={!!busy} className="disabled:opacity-60"><ContentFields key={active} path={active} label={section?.title} value={draft[active] as FieldValue} onChange={value => { setDraft(previous => ({ ...previous, [active]: value } as SiteContent)); setMessage(""); }} /></fieldset>}
+          </fieldset>{dirty && <p className="text-sm text-amber-800">Publikasikan atau buang perubahan konten sebelum mengganti kata sandi.</p>}</form> : active === "applications" ? <ApplicationViewer /> : active === "chatlogs" ? <ChatLogViewer /> : <fieldset disabled={!!busy} className="disabled:opacity-60"><ContentFields key={active} path={active} label={section?.title} value={draft[active] as FieldValue} onChange={value => { setDraft(previous => ({ ...previous, [active]: value } as SiteContent)); setMessage(""); }} /></fieldset>}
         </div>
       </main>
     </div>
-    <div className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur border-t border-line z-30"><div className="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex flex-wrap justify-between items-center gap-3"><p className="text-xs sm:text-sm text-muted">{dirty ? "Ada perubahan yang belum dipublikasikan" : active === "chatlogs" ? "Pertanyaan chatbot otomatis dicatat langsung dari widget AI" : "Semua perubahan telah tersimpan"}</p><div className="flex gap-3"><button disabled={!dirty || !!busy} onClick={() => { if (window.confirm("Buang semua perubahan yang belum dipublikasikan?")) { setDraft(saved.content); setError(""); } }} className="text-sm px-3 py-2 disabled:opacity-30">Buang perubahan</button><button disabled={!dirty || !!busy} onClick={save} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-900 text-white text-sm font-medium disabled:opacity-40"><IconDeviceFloppy size={18} /> Simpan & publikasikan</button></div></div></div>
+    <div className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur border-t border-line z-30"><div className="max-w-7xl mx-auto px-5 sm:px-8 py-4 flex flex-wrap justify-between items-center gap-3"><p className="text-xs sm:text-sm text-muted">{dirty ? "Ada perubahan yang belum dipublikasikan" : active === "applications" ? "Data pendaftar dibaca langsung dari database" : active === "chatlogs" ? "Pertanyaan chatbot otomatis dicatat langsung dari widget AI" : "Semua perubahan telah tersimpan"}</p><div className="flex gap-3"><button disabled={!dirty || !!busy} onClick={() => { if (window.confirm("Buang semua perubahan yang belum dipublikasikan?")) { setDraft(saved.content); setError(""); } }} className="text-sm px-3 py-2 disabled:opacity-30">Buang perubahan</button><button disabled={!dirty || !!busy} onClick={save} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-900 text-white text-sm font-medium disabled:opacity-40"><IconDeviceFloppy size={18} /> Simpan & publikasikan</button></div></div></div>
     {busy && <div role="status" aria-live="polite" className="fixed inset-0 z-50 bg-emerald-950/30 backdrop-blur-sm flex items-center justify-center p-6"><div className="bg-white rounded-2xl p-7 shadow-xl flex items-center gap-4"><IconLoader2 className="animate-spin text-emerald-800" />{busy}</div></div>}
   </div>;
 }

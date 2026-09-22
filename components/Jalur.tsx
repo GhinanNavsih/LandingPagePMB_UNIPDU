@@ -97,8 +97,6 @@ export default function Jalur() {
                 <div className="mt-8">
                   <a
                     href={content.site.registrationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className={`w-full text-center block px-4 py-3 rounded-xl font-medium text-[14px] transition-all duration-200 active:scale-[0.98] ${
                       path.featured
                         ? "bg-emerald-900 text-white hover:bg-emerald-950 shadow-sm"

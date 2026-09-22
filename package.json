@@ -10,6 +10,8 @@
     "test": "tsx --test tests/*.test.ts",
     "admin:provision": "tsx scripts/provision-admin.ts",
     "admin:lock-dormitories": "tsx scripts/lock-dormitory-content.ts",
+    "admin:enable-registration": "tsx scripts/enable-registration.ts",
+    "test:registration": "firebase emulators:exec --only firestore --project demo-unipdu-landing --config tests/firebase.json \"tsx tests/registration-integration.ts\"",
     "test:integration": "firebase emulators:exec --only auth,firestore --project demo-unipdu-landing --config tests/firebase.json \"tsx tests/admin-integration.ts\""
   },
   "dependencies": {

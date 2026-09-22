@@ -77,8 +77,6 @@ export default function PMB() {
         <div className="mt-16 text-center">
           <a
             href={content.site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[14.5px] transition-all duration-200 shadow-lg shadow-gold/20 active:scale-[0.98]"
           >
             {content.admissions.buttonLabel}

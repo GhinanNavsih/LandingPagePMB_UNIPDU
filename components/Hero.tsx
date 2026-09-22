@@ -67,8 +67,6 @@ export default function Hero() {
         >
           <a
             href={content.site.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[15px] transition-all duration-200 shadow-lg shadow-gold/20 hover:shadow-xl flex items-center justify-center gap-2.5 group active:scale-[0.98]"
           >
             {content.site.registrationLabel}

@@ -443,11 +443,9 @@ export default function Chatbot() {
                 <span>Didukung oleh Google Gemini</span>
                 <a
                   href={content.site.registrationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="text-emerald-800 hover:underline"
                 >
-                  pmb.unipdu.ac.id ↗
+                  Formulir pendaftaran
                 </a>
               </div>
             </div>

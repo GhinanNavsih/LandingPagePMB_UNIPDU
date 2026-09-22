@@ -3,10 +3,11 @@ import { z } from "zod";
 const text = z.string().trim().min(1, "Wajib diisi").max(500);
 const paragraph = z.string().trim().min(1, "Wajib diisi").max(5000);
 const httpsUrl = z.string().max(2000).url("Masukkan URL lengkap").refine((value) => URL.canParse(value) && new URL(value).protocol === "https:", "Gunakan URL https://");
+const navigationUrl = z.string().max(2000).refine(value => /^\/(?!\/)[\w./%=-]*$/.test(value) || (value.startsWith("https://") && URL.canParse(value)), "Gunakan path internal /halaman atau URL https://");
 const mediaUrl = z.string().refine((value) => /^\/(?!\/)[\w./%=-]+$/.test(value) || (value.startsWith("https://") && URL.canParse(value)), "Gunakan path /berkas atau URL https://");
 const heading = { eyebrow: text, title: text, highlight: text, suffix: z.string().max(500), description: paragraph };
 export const contentSchema = z.object({
-  site: z.object({ name: text, university: text, description: paragraph, registrationUrl: httpsUrl, registrationLabel: text, metaTitle: text, metaDescription: paragraph }).strict(),
+  site: z.object({ name: text, university: text, description: paragraph, registrationUrl: navigationUrl, registrationLabel: text, metaTitle: text, metaDescription: paragraph }).strict(),
   hero: z.object({ badge: text, title: text, highlight: text, suffix: text, description: paragraph, videoUrl: mediaUrl, secondaryLabel: text }).strict(),
   announcements: z.array(text).min(1).max(20),
   stats: z.array(z.object({ value: text, label: text }).strict()).min(1).max(10),
