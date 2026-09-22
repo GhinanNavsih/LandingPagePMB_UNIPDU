@@ -160,8 +160,8 @@ export default function AlamatCascadeSelect({
         aria-hidden="true"
       />
 
-      {/* Cascading 2x2 Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+      {/* Progressive Cascading Fields */}
+      <div className="space-y-3.5">
         {/* 1. Provinsi */}
         <div className="space-y-1.5">
           <label className="text-xs font-semibold uppercase tracking-wider text-muted">
@@ -177,6 +177,8 @@ export default function AlamatCascadeSelect({
               setKecamatanKode("");
               setKelurahanKode("");
             }}
+            onFocus={onFocus}
+            onBlur={onBlur}
             inputClassName={effectiveInputClass}
             placeholder="Ketik nama provinsi (mis. Jatim, Jabar, DKI)..."
             synonyms={PROVINSI_SYNONYMS}
@@ -184,66 +186,66 @@ export default function AlamatCascadeSelect({
           />
         </div>
 
-        {/* 2. Kabupaten/Kota */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-            2. Kabupaten / Kota <span className="text-red-700">*</span>
-          </label>
-          <SearchSelect
-            options={kabupatenList}
-            value={kabupatenKode}
-            onChange={kode => {
-              setKabupatenKode(kode);
-              setKecamatanKode("");
-              setKelurahanKode("");
-            }}
-            inputClassName={effectiveInputClass}
-            placeholder="Pilih atau cari kabupaten/kota..."
-            disabledPlaceholder="Pilih provinsi terlebih dahulu"
-            disabled={!provinsiKode}
-            isLoading={loadingKabupaten}
-          />
-        </div>
+        {/* 2. Kabupaten/Kota - only visible after Provinsi is chosen */}
+        {provinsiKode && (
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted">
+              2. Kabupaten / Kota <span className="text-red-700">*</span>
+            </label>
+            <SearchSelect
+              options={kabupatenList}
+              value={kabupatenKode}
+              onChange={kode => {
+                setKabupatenKode(kode);
+                setKecamatanKode("");
+                setKelurahanKode("");
+              }}
+              inputClassName={effectiveInputClass}
+              placeholder="Pilih atau cari kabupaten/kota..."
+              isLoading={loadingKabupaten}
+            />
+          </div>
+        )}
 
-        {/* 3. Kecamatan */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-            3. Kecamatan <span className="text-red-700">*</span>
-          </label>
-          <SearchSelect
-            options={kecKelData.kecamatan}
-            value={kecamatanKode}
-            onChange={kode => {
-              setKecamatanKode(kode);
-              setKelurahanKode("");
-            }}
-            inputClassName={effectiveInputClass}
-            placeholder="Pilih atau cari kecamatan..."
-            disabledPlaceholder="Pilih kabupaten/kota terlebih dahulu"
-            disabled={!kabupatenKode}
-            isLoading={loadingKecKel}
-          />
-        </div>
+        {/* 3. Kecamatan - only visible after Kabupaten/Kota is chosen */}
+        {kabupatenKode && (
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted">
+              3. Kecamatan <span className="text-red-700">*</span>
+            </label>
+            <SearchSelect
+              options={kecKelData.kecamatan}
+              value={kecamatanKode}
+              onChange={kode => {
+                setKecamatanKode(kode);
+                setKelurahanKode("");
+              }}
+              inputClassName={effectiveInputClass}
+              placeholder="Pilih atau cari kecamatan..."
+              isLoading={loadingKecKel}
+            />
+          </div>
+        )}
 
-        {/* 4. Kelurahan / Desa */}
-        <div className="space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-            4. Kelurahan / Desa <span className="text-red-700">*</span>
-          </label>
-          <SearchSelect
-            options={kelurahanOptions}
-            value={kelurahanKode}
-            onChange={kode => setKelurahanKode(kode)}
-            inputClassName={effectiveInputClass}
-            placeholder="Pilih atau cari kelurahan/desa..."
-            disabledPlaceholder="Pilih kecamatan terlebih dahulu"
-            disabled={!kecamatanKode}
-          />
-        </div>
+        {/* 4. Kelurahan / Desa - only visible after Kecamatan is chosen */}
+        {kecamatanKode && (
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted">
+              4. Kelurahan / Desa <span className="text-red-700">*</span>
+            </label>
+            <SearchSelect
+              options={kelurahanOptions}
+              value={kelurahanKode}
+              onChange={kode => setKelurahanKode(kode)}
+              inputClassName={effectiveInputClass}
+              placeholder="Pilih atau cari kelurahan/desa..."
+            />
+          </div>
+        )}
       </div>
 
-      {/* Composed Address Preview Box */}
-      {composedPreview && (
+      {/* Composed Address Preview Box - only visible once all 4 are selected */}
+      {Boolean(provinsiKode && kabupatenKode && kecamatanKode && kelurahanKode && composedPreview) && (
         <div className="p-3.5 bg-emerald-50/70 border border-emerald-200/70 rounded-xl flex items-start gap-2.5">
           <IconMapPin size={18} className="text-emerald-800 shrink-0 mt-0.5" />
           <div className="min-w-0 text-xs text-emerald-950">

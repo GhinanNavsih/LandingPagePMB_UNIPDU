@@ -117,7 +117,7 @@ export default function CustomProgramSelect({
     setIsTyping(false);
     setSearchQuery("");
     setHighlightedIndex(-1);
-    inputRef.current?.focus();
+    inputRef.current?.blur();
     onBlur?.();
   }
 
@@ -324,9 +324,10 @@ export default function CustomProgramSelect({
                           role="option"
                           data-option-index={currentIndex}
                           aria-selected={isSelected}
+                          onMouseDown={e => e.preventDefault()}
                           onMouseEnter={() => setHighlightedIndex(currentIndex)}
                           onClick={() => handleSelect(program.code)}
-                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-between group select-none ${
+                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-base transition-all flex items-center justify-between group select-none ${
                             isSelected
                               ? "bg-emerald-900 text-white font-semibold shadow-xs"
                               : isHighlighted

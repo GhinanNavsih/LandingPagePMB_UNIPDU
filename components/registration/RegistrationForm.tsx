@@ -220,7 +220,6 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
     <main className="mx-auto grid max-w-6xl gap-8 px-5 py-8 sm:px-8 sm:py-12 lg:grid-cols-[270px_minmax(0,1fr)] lg:gap-12">
       <aside className="hidden lg:block">
         <div className="sticky top-8 space-y-7">
-          <a href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-800 hover:text-emerald-950"><IconArrowLeft size={17} /> Kembali ke beranda</a>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">Formulir pendaftaran</p>
             <h1 className="mt-3 font-serif text-3xl leading-tight text-ink">Mulai langkah Anda di UNIPDU</h1>
@@ -243,7 +242,6 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
       </aside>
 
       <section className="min-w-0">
-        <div className="mb-6 lg:hidden"><a href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-800"><IconArrowLeft size={17} /> Kembali</a></div>
         <div className="mb-5 flex items-end justify-between gap-4">
           <div><p className="text-sm font-semibold text-emerald-800">Langkah {step + 1} dari 4</p><h1 className="mt-1 font-serif text-3xl text-ink">{stepDefinitions[step].title}</h1></div>
           <span className="text-sm font-semibold text-muted">{progress}%</span>
@@ -300,7 +298,7 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
           </div>
 
           <div className={step === 2 ? "space-y-7" : "hidden"}>
-            <FieldShell name="address" label="Alamat asal" required hint="Pilih wilayah tempat tinggal secara berurutan: Provinsi → Kabupaten/Kota → Kecamatan → Kelurahan/Desa." {...fieldState("address")}>
+            <FieldShell name="address" label="Alamat asal" required {...fieldState("address")}>
               <AlamatCascadeSelect id="address" value={draft.address} onChange={composed => update("address", composed)} onFocus={() => setEditingField("address")} onBlur={() => blur("address")} />
             </FieldShell>
             <FieldShell name="phone" label="Nomor telepon / HP" required hint="Gunakan nomor WhatsApp aktif agar tim PMB mudah menghubungi Anda." {...fieldState("phone")}>
@@ -351,9 +349,51 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
 
           <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} className="absolute -left-[9999px] h-px w-px opacity-0" aria-hidden="true" />
 
-          <div className="mt-9 flex flex-col-reverse gap-3 border-t border-line pt-6 sm:flex-row sm:justify-between">
-            {step > 0 ? <button type="button" onClick={() => setStep(current => current - 1)} className="inline-flex items-center justify-center gap-2 rounded-xl border border-line px-5 py-3.5 text-sm font-semibold text-body transition hover:border-emerald-700 hover:text-emerald-800"><IconArrowLeft size={17} /> Sebelumnya</button> : <span />}
-            {step < stepDefinitions.length - 1 ? <button type="button" onClick={nextStep} className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-950">Lanjutkan <IconArrowRight size={17} /></button> : <button type="submit" disabled={busy} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-6 py-3.5 text-sm font-bold text-emerald-950 shadow-sm transition hover:bg-gold-light disabled:opacity-60"><IconClipboardCheck size={18} /> Kirim pendaftaran</button>}
+          <div className="mt-9 border-t border-line pt-6">
+            {step === 0 ? (
+              <div className="flex flex-col items-stretch sm:items-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-950 w-full sm:w-auto"
+                >
+                  Lanjutkan <IconArrowRight size={17} />
+                </button>
+                <a
+                  href="/"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-muted transition hover:text-emerald-900 hover:bg-paper-alt w-full sm:w-auto text-center"
+                >
+                  <IconArrowLeft size={16} /> Kembali
+                </a>
+              </div>
+            ) : (
+              <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+                <button
+                  type="button"
+                  onClick={() => setStep(current => current - 1)}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-line px-5 py-3.5 text-sm font-semibold text-body transition hover:border-emerald-700 hover:text-emerald-800"
+                >
+                  <IconArrowLeft size={17} /> Sebelumnya
+                </button>
+                {step < stepDefinitions.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={nextStep}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-950"
+                  >
+                    Lanjutkan <IconArrowRight size={17} />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={busy}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-6 py-3.5 text-sm font-bold text-emerald-950 shadow-sm transition hover:bg-gold-light disabled:opacity-60"
+                  >
+                    <IconClipboardCheck size={18} /> Kirim pendaftaran
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </form>
       </section>

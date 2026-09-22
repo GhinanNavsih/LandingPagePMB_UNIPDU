@@ -29,6 +29,8 @@ interface SearchSelectProps {
   synonyms?: Record<string, string[]>;
   acronymIgnoreWords?: string[];
   required?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const DEFAULT_ACRONYM_IGNORE_WORDS = ["Kabupaten", "Kota"];
@@ -100,6 +102,8 @@ export default function SearchSelect({
   synonyms,
   acronymIgnoreWords = DEFAULT_ACRONYM_IGNORE_WORDS,
   required,
+  onFocus,
+  onBlur,
 }: SearchSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -119,6 +123,7 @@ export default function SearchSelect({
           setIsTyping(false);
           setSearchTerm("");
           setHighlightedIndex(-1);
+          onBlur?.();
         }
       }
     }
@@ -155,7 +160,8 @@ export default function SearchSelect({
     setIsTyping(false);
     setSearchTerm("");
     setHighlightedIndex(-1);
-    inputRef.current?.focus();
+    inputRef.current?.blur();
+    onBlur?.();
   }
 
   function handleClear(e: React.MouseEvent) {
@@ -199,6 +205,8 @@ export default function SearchSelect({
       setIsTyping(false);
       setSearchTerm("");
       setHighlightedIndex(-1);
+      inputRef.current?.blur();
+      onBlur?.();
     }
   }
 
@@ -260,6 +268,7 @@ export default function SearchSelect({
             if (!isOpen) setIsOpen(true);
           }}
           onFocus={() => {
+            onFocus?.();
             if (!disabled && !isLoading) {
               setIsOpen(true);
             }
@@ -319,10 +328,10 @@ export default function SearchSelect({
         <div
           ref={listRef}
           role="listbox"
-          className="absolute z-50 left-0 right-0 top-[calc(100%+6px)] max-h-60 sm:max-h-64 overflow-y-auto overscroll-contain rounded-2xl bg-white border border-emerald-900/15 shadow-[0_20px_50px_-15px_rgba(6,26,18,0.25)] p-2 space-y-1 animate-in fade-in zoom-in-95 duration-150"
+          className="absolute z-50 left-0 right-0 top-[calc(100%+6px)] max-h-64 sm:max-h-72 overflow-y-auto overscroll-contain rounded-2xl bg-white border border-emerald-900/15 shadow-[0_20px_50px_-15px_rgba(6,26,18,0.25)] p-2 space-y-1 animate-in fade-in zoom-in-95 duration-150"
         >
           {filtered.length === 0 ? (
-            <div className="p-4 text-center text-xs text-muted">
+            <div className="p-4 text-center text-sm text-muted">
               Tidak ditemukan data yang sesuai
             </div>
           ) : (
@@ -337,9 +346,10 @@ export default function SearchSelect({
                   role="option"
                   data-option-index={idx}
                   aria-selected={isSelected}
+                  onMouseDown={e => e.preventDefault()}
                   onMouseEnter={() => setHighlightedIndex(idx)}
                   onClick={() => handleSelect(option)}
-                  className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-between group select-none ${
+                  className={`w-full text-left px-4 py-3 rounded-xl text-base transition-all flex items-center justify-between group select-none ${
                     isSelected
                       ? "bg-emerald-900 text-white font-semibold shadow-xs"
                       : isHighlighted
@@ -351,7 +361,7 @@ export default function SearchSelect({
                     <span className="block truncate">{option.nama}</span>
                     {option.subtitle && (
                       <span
-                        className={`block text-[11px] truncate mt-0.5 ${
+                        className={`block text-xs sm:text-sm truncate mt-0.5 ${
                           isSelected ? "text-emerald-200" : "text-muted"
                         }`}
                       >
@@ -361,7 +371,7 @@ export default function SearchSelect({
                   </div>
 
                   {isSelected && (
-                    <IconCheck size={16} className="text-gold-light shrink-0 ml-2" />
+                    <IconCheck size={18} className="text-gold-light shrink-0 ml-2" />
                   )}
                 </button>
               );
