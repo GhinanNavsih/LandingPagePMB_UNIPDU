@@ -201,9 +201,9 @@ export default function Chatbot() {
               target="_blank"
               rel="noopener noreferrer"
               title={`Chat WhatsApp ke ${part}`}
-              className="inline-flex items-center gap-1 font-medium text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-300/70 hover:border-emerald-500 transition-colors cursor-pointer text-[12px] align-baseline mx-0.5"
+              className="inline-flex items-center gap-1 font-medium text-structure-blue-800 bg-structure-blue-50 hover:bg-structure-blue-100 px-1.5 py-0.5 rounded border border-structure-blue-300/70 hover:border-structure-blue-500 transition-colors cursor-pointer text-[12px] align-baseline mx-0.5"
             >
-              <IconBrandWhatsapp size={13} className="text-emerald-600 flex-shrink-0" />
+              <IconBrandWhatsapp size={13} className="text-structure-blue-600 flex-shrink-0" />
               <span>{part}</span>
             </a>
           );
@@ -215,7 +215,7 @@ export default function Chatbot() {
 
       if (isBold) {
         return (
-          <strong key={`bold-${bIdx}`} className="font-semibold text-emerald-950">
+          <strong key={`bold-${bIdx}`} className="font-semibold text-structure-blue-950">
             {renderedParts}
           </strong>
         );
@@ -243,10 +243,10 @@ export default function Chatbot() {
         const itemText = numberedMatch[2];
         return (
           <div key={idx} className={`flex items-start gap-2 my-1 ${isIndented ? "ml-4" : "ml-0.5"}`}>
-            <span className="font-semibold text-emerald-900 text-xs leading-5 min-w-[14px]">
+            <span className="font-semibold text-structure-blue-900 text-xs leading-5 min-w-[14px]">
               {num}.
             </span>
-            <div className="leading-snug text-body flex-1">
+            <div className="leading-snug text-neutral-700 flex-1">
               {formatInline(itemText)}
             </div>
           </div>
@@ -258,10 +258,10 @@ export default function Chatbot() {
         const itemText = trimmed.slice(2);
         return (
           <div key={idx} className={`flex items-start gap-2 my-1 ${isIndented ? "ml-4" : "ml-0.5"}`}>
-            <span className="text-gold font-bold text-sm leading-5 select-none">
+            <span className="text-structure-rose-500 font-bold text-sm leading-5 select-none">
               •
             </span>
-            <div className="leading-snug text-body flex-1">
+            <div className="leading-snug text-neutral-700 flex-1">
               {formatInline(itemText)}
             </div>
           </div>
@@ -287,21 +287,21 @@ export default function Chatbot() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="w-[92vw] sm:w-[390px] md:w-[410px] h-[580px] max-h-[82vh] bg-paper rounded-2xl shadow-2xl border border-line flex flex-col overflow-hidden mb-3.5 select-text"
+            className="w-[92vw] sm:w-[390px] md:w-[410px] h-[580px] max-h-[82vh] bg-canvas rounded-2xl shadow-2xl border border-neutral-200 flex flex-col overflow-hidden mb-3.5 select-text"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-white p-4 border-b border-emerald-800/80 flex items-center justify-between shadow-sm">
+            <div className="bg-gradient-to-r from-structure-rose-600 via-structure-rose-500 to-structure-rose-600 text-white p-4 border-b border-structure-rose-400/50 flex items-center justify-between shadow-sm">
               <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-amber-300">
+                <div className="relative w-10 h-10 rounded-xl bg-white/20 border border-white/30 flex items-center justify-center text-white">
                   <IconSparkles size={22} />
-                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-emerald-950 rounded-full" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-structure-rose-600 rounded-full" />
                 </div>
                 <div>
                   <h3 className="font-serif text-[15.5px] font-medium leading-tight text-white flex items-center gap-1.5">
                     Asisten PMB UNIPDU
                   </h3>
-                  <p className="text-[11px] text-emerald-100/75 flex items-center gap-1 mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <p className="text-[11px] text-white/90 flex items-center gap-1 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
                     Online • Berbasis Gemini AI
                   </p>
                 </div>
@@ -311,14 +311,14 @@ export default function Chatbot() {
                 <button
                   onClick={handleClearChat}
                   title="Mulai percakapan baru"
-                  className="p-1.5 text-emerald-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  className="p-1.5 text-white/80 hover:text-white hover:bg-white/15 rounded-lg transition-colors"
                 >
                   <IconRefresh size={18} />
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
                   title="Tutup Chat"
-                  className="p-1.5 text-emerald-200 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  className="p-1.5 text-white/80 hover:text-white hover:bg-white/15 rounded-lg transition-colors"
                 >
                   <IconChevronDown size={20} />
                 </button>
@@ -326,7 +326,7 @@ export default function Chatbot() {
             </div>
 
             {/* Message Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-[13.5px] bg-[#fbfaf7]/80">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-[13.5px] bg-canvas/80">
               {messages.map((msg, index) => {
                 const isLatestBotMessage =
                   index === messages.length - 1 && msg.role === "assistant";
@@ -345,13 +345,13 @@ export default function Chatbot() {
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${
                       msg.role === "user"
-                        ? "bg-emerald-900 text-white rounded-tr-none"
-                        : "bg-white text-body border border-line rounded-tl-none shadow-[0_2px_10px_rgba(0,0,0,0.03)]"
+                        ? "bg-structure-rose-500 text-white rounded-tr-none"
+                        : "bg-white text-neutral-800 border border-neutral-200 rounded-tl-none shadow-[0_2px_10px_rgba(21,23,28,0.03)]"
                     }`}
                   >
                     {renderFormattedText(msg.content)}
                   </div>
-                  <span className="text-[10px] text-muted/70 px-1 mt-1">
+                  <span className="text-[10px] text-neutral-500/70 px-1 mt-1">
                     {msg.role === "user" ? "Anda" : "Asisten PMB"}
                   </span>
                 </motion.div>
@@ -365,11 +365,11 @@ export default function Chatbot() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-start gap-2"
                 >
-                  <div className="bg-white border border-line rounded-2xl rounded-tl-none px-4 py-2.5 shadow-sm flex items-center gap-2.5 max-w-[92%]">
+                  <div className="bg-white border border-neutral-200 rounded-2xl rounded-tl-none px-4 py-2.5 shadow-sm flex items-center gap-2.5 max-w-[92%]">
                     <div className="flex items-center gap-1 flex-shrink-0">
-                      <span className="w-2 h-2 rounded-full bg-emerald-700 animate-bounce [animation-delay:-0.3s]" />
-                      <span className="w-2 h-2 rounded-full bg-gold animate-bounce [animation-delay:-0.15s]" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-800 animate-bounce" />
+                      <span className="w-2 h-2 rounded-full bg-structure-blue-600 animate-bounce [animation-delay:-0.3s]" />
+                      <span className="w-2 h-2 rounded-full bg-structure-rose-500 animate-bounce [animation-delay:-0.15s]" />
+                      <span className="w-2 h-2 rounded-full bg-focal animate-bounce" />
                     </div>
                     <div className="overflow-hidden min-h-[18px] flex items-center">
                       <AnimatePresence mode="wait">
@@ -379,7 +379,7 @@ export default function Chatbot() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -5 }}
                           transition={{ duration: 0.22 }}
-                          className="text-[12px] font-medium text-emerald-950/80 italic select-none"
+                          className="text-[12px] font-medium text-structure-blue-950/80 italic select-none"
                         >
                           {FUN_LOADING_TEXTS[loadingTextIndex]}
                         </motion.span>
@@ -394,8 +394,8 @@ export default function Chatbot() {
 
             {/* Quick Chips (if only initial greeting) */}
             {messages.length <= 2 && !isLoading && (
-              <div className="px-4 py-2 bg-white/70 border-t border-line/60">
-                <p className="text-[11px] font-medium text-muted mb-1.5">
+              <div className="px-4 py-2 bg-white/80 border-t border-neutral-200/70">
+                <p className="text-[11px] font-medium text-neutral-500 mb-1.5">
                   Pertanyaan Populer:
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -403,7 +403,7 @@ export default function Chatbot() {
                     <button
                       key={idx}
                       onClick={() => handleSendMessage(q)}
-                      className="text-[11.5px] bg-white hover:bg-emerald-50 text-emerald-900 border border-line hover:border-emerald-700/40 rounded-full px-2.5 py-1 transition-all text-left truncate max-w-full"
+                      className="text-[11.5px] bg-white hover:bg-structure-rose-50 text-structure-rose-700 border border-neutral-200 hover:border-structure-rose-300 rounded-full px-2.5 py-1 transition-all text-left truncate max-w-full"
                     >
                       {q}
                     </button>
@@ -413,7 +413,7 @@ export default function Chatbot() {
             )}
 
             {/* Input Bar */}
-            <div className="p-3 bg-white border-t border-line">
+            <div className="p-3 bg-white border-t border-neutral-200">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -429,21 +429,21 @@ export default function Chatbot() {
                   onKeyDown={handleKeyDown}
                   placeholder="Ketik pertanyaan seputar PMB..."
                   disabled={isLoading}
-                  className="flex-1 bg-paper border border-line rounded-xl px-3.5 py-2.5 text-[13.5px] text-ink placeholder:text-muted/60 focus:outline-none focus:border-emerald-800 transition-colors disabled:opacity-50"
+                  className="flex-1 bg-canvas border border-neutral-200 rounded-xl px-3.5 py-2.5 text-[13.5px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-structure-rose-500 focus:ring-1 focus:ring-structure-rose-200 transition-colors disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={!inputMessage.trim() || isLoading}
-                  className="w-10 h-10 rounded-xl bg-emerald-900 hover:bg-emerald-950 disabled:bg-emerald-900/40 text-white flex items-center justify-center transition-all disabled:cursor-not-allowed active:scale-95 shadow-sm flex-shrink-0"
+                  className="w-10 h-10 rounded-xl bg-structure-rose-500 hover:bg-structure-rose-600 disabled:bg-neutral-300 text-white flex items-center justify-center transition-all disabled:cursor-not-allowed active:scale-95 shadow-sm flex-shrink-0"
                 >
                   <IconSend size={18} />
                 </button>
               </form>
-              <div className="flex items-center justify-between mt-2 px-1 text-[10.5px] text-muted">
+              <div className="flex items-center justify-between mt-2 px-1 text-[10.5px] text-neutral-500">
                 <span>Didukung oleh Google Gemini</span>
                 <a
                   href={content.site.registrationUrl}
-                  className="text-emerald-800 hover:underline"
+                  className="text-structure-rose-600 hover:underline"
                 >
                   Formulir pendaftaran
                 </a>
@@ -458,22 +458,22 @@ export default function Chatbot() {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="relative group flex items-center gap-2.5 bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-white pl-4 pr-5 py-3.5 rounded-full shadow-[0_8px_25px_rgba(6,26,18,0.35)] border border-amber-300/30 hover:border-amber-300/70 transition-all duration-300"
+        className="relative group flex items-center gap-2.5 bg-gradient-to-r from-structure-rose-600 via-structure-rose-500 to-structure-rose-600 text-white pl-4 pr-5 py-3.5 rounded-full shadow-[0_8px_25px_rgba(220,94,132,0.35)] border border-structure-rose-300/50 hover:border-white/60 transition-all duration-300"
         aria-label="Buka Asisten PMB"
       >
         {/* Glow / Ping Indicator */}
         {!hasOpenedBefore && (
           <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75" />
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-gold" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-white" />
           </span>
         )}
 
-        <div className="w-6 h-6 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center">
+        <div className="w-6 h-6 rounded-full bg-white/20 text-white flex items-center justify-center">
           {isOpen ? <IconX size={18} /> : <IconMessageChatbot size={18} />}
         </div>
 
-        <span className="font-medium text-[13.5px] tracking-wide text-amber-100">
+        <span className="font-semibold text-[13.5px] tracking-wide text-white">
           {isOpen ? "Tutup Chat" : "Tanya PMB UNIPDU"}
         </span>
       </motion.button>

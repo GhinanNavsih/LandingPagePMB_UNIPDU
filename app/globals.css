@@ -1,13 +1,69 @@
-/* PMB UNIPDU Theme */
+/* PMB UNIPDU Theme - 60-30-10 Color System */
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Primitive Foundations */
+  --primitive-platinum: #f1f2f4;
+  --primitive-dusk-blue-500: #4d5c9d;
+  --primitive-dusk-blue-600: #3d4a80;
+  --primitive-dusk-blue-900: #1b1f35;
+  --primitive-blush-rose-50: #fcf1f4;
+  --primitive-blush-rose-500: #dc5e84;
+  --primitive-blush-rose-600: #c2456b;
+  --primitive-blush-rose-700: #9e3555;
+  --primitive-rosy-taupe-500: #b99388;
+  --primitive-rosy-taupe-600: #a57d71;
+  --primitive-rosy-taupe-700: #8d665b;
+  --primitive-neutral-900: #15171c;
+  --primitive-white: #ffffff;
+
+  /* 60% Canvas & Surfaces */
+  --color-canvas-base: var(--primitive-platinum);
+  --color-canvas-surface: var(--primitive-white);
+
+  /* 30% Structural Framework (Dusk Blue & Blush Rose) */
+  --color-structure-nav: var(--primitive-dusk-blue-500);
+  --color-structure-nav-text: var(--primitive-white);
+  --color-structure-heading: var(--primitive-dusk-blue-900);
+  --color-structure-accent: var(--primitive-blush-rose-500);
+  --color-structure-accent-hover: var(--primitive-blush-rose-600);
+  --color-structure-tag-bg: var(--primitive-blush-rose-50);
+  --color-structure-tag-text: var(--primitive-blush-rose-700);
+
+  /* Focal Accent (Blush Rose) */
+  --color-action-focal: var(--primitive-blush-rose-500);
+  --color-action-focal-hover: var(--primitive-blush-rose-600);
+  --color-action-focal-active: var(--primitive-blush-rose-700);
+  --color-action-focal-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas-base: #0b0c0e;
+    --color-canvas-surface: #15171c;
+
+    --color-structure-nav: #1b1f35;
+    --color-structure-nav-text: var(--primitive-platinum);
+    --color-structure-heading: #e3e7f2;
+    --color-structure-accent: #e67897;
+    --color-structure-accent-hover: #ee9cb3;
+    --color-structure-tag-bg: #612437;
+    --color-structure-tag-text: #f4c4d2;
+
+    --color-action-focal: #e67897;
+    --color-action-focal-hover: #ee9cb3;
+    --color-action-focal-active: #dc5e84;
+    --color-action-focal-text: #ffffff;
+  }
+}
+
 html, body {
-  background: #fbfaf7;
-  color: #33443d;
+  background: var(--color-canvas-base);
+  color: #3b3f49;
   scroll-behavior: smooth;
 }
 
@@ -18,8 +74,8 @@ body {
 }
 
 ::selection {
-  background: #eedaa8;
-  color: #092e21;
+  background: #f4c4d2;
+  color: #1b1f35;
 }
 
 /* Custom delicate scrollbar */
@@ -27,14 +83,40 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f4f1ea;
+  background: #e2e4e8;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbcfc9;
+  background: #cfd2d8;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0d4331;
+  background: #4d5c9d;
+}
+
+/* Component Level Utility Classes from Documentation */
+.btn-focal {
+  background-color: var(--color-action-focal);
+  color: var(--color-action-focal-text);
+  font-weight: 600;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+}
+
+.btn-focal:hover {
+  background-color: var(--color-action-focal-hover);
+}
+
+.btn-focal:active {
+  background-color: var(--color-action-focal-active);
+}
+
+.structural-header {
+  background-color: var(--color-structure-nav);
+  color: var(--color-structure-nav-text);
+  border-bottom: 3px solid var(--color-structure-accent);
 }
 
 /* Marquee / Running Text */
@@ -50,5 +132,3 @@ body {
 .marquee-track:hover {
   animation-play-state: paused;
 }
-
-

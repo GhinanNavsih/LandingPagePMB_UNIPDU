@@ -33,7 +33,19 @@ export async function POST(req: Request) {
     const ai = new GoogleGenAI({ apiKey });
     const { content } = await getContent();
     const systemInstruction = chatbotInstruction(content);
-    const configuredModel = process.env.GEMINI_MODEL || "gemini-flash-lite-latest";
+    const preferredModel = process.env.GEMINI_MODEL || "gemini-flash-lite-latest";
+    const candidateModels = Array.from(
+      new Set(
+        [
+          preferredModel,
+          "gemini-flash-lite-latest",
+          "gemini-3.8-flash",
+          "gemini-3.6-flash",
+          "gemini-3.5-flash",
+          "gemini-flash-latest",
+        ].filter(Boolean)
+      )
+    );
 
     const userMessages = messages.filter((m: { role: string; content: string }) => m.role === "user");
     const lastUserQuestion = userMessages[userMessages.length - 1]?.content || "";
@@ -44,43 +56,13 @@ export async function POST(req: Request) {
       parts: [{ text: m.content }],
     }));
 
-    try {
-      const response = await ai.models.generateContent({
-        model: configuredModel,
-        contents: formattedContents,
-        config: {
-          systemInstruction,
-          temperature: 0.2,
-        },
-      });
+    let responseText: string | null = null;
+    let lastError: any = null;
 
-      const replyText =
-        response.text ||
-        `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`;
-
-      logChatQuery({
-        question: lastUserQuestion,
-        reply: replyText,
-        status: response.text ? "answered" : "fallback",
-        hasContactReferral:
-          replyText.includes(content.contact.whatsapp) ||
-          replyText.toLowerCase().includes("whatsapp") ||
-          replyText.toLowerCase().includes("sekretariat"),
-      }).catch(err => console.warn("Chat log recording skipped:", err));
-
-      return NextResponse.json({
-        reply: replyText,
-      });
-    } catch (primaryError: any) {
-      console.warn(
-        `Error generating content with ${configuredModel}, attempting fallback:`,
-        primaryError?.message
-      );
-
-      // Try fallback to gemini-flash-latest if configuredModel fails
-      if (configuredModel !== "gemini-flash-latest") {
-        const fallbackResponse = await ai.models.generateContent({
-          model: "gemini-flash-latest",
+    for (const modelName of candidateModels) {
+      try {
+        const response = await ai.models.generateContent({
+          model: modelName,
           contents: formattedContents,
           config: {
             systemInstruction,
@@ -88,29 +70,51 @@ export async function POST(req: Request) {
           },
         });
 
-        const fallbackReply =
-          fallbackResponse.text ||
-          `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`;
-
-        logChatQuery({
-          question: lastUserQuestion,
-          reply: fallbackReply,
-          status: fallbackResponse.text ? "answered" : "fallback",
-          hasContactReferral:
-            fallbackReply.includes(content.contact.whatsapp) ||
-            fallbackReply.toLowerCase().includes("whatsapp") ||
-            fallbackReply.toLowerCase().includes("sekretariat"),
-        }).catch(err => console.warn("Chat log recording skipped:", err));
-
-        return NextResponse.json({
-          reply: fallbackReply,
-        });
+        if (response.text) {
+          responseText = response.text;
+          break;
+        }
+      } catch (err: any) {
+        lastError = err;
+        console.warn(
+          `Error generating content with ${modelName}, trying next model:`,
+          err?.message || err
+        );
       }
-
-      throw primaryError;
     }
+
+    if (!responseText) {
+      if (lastError) {
+        console.error("All candidate Gemini models failed. Last error:", lastError);
+      }
+      return NextResponse.json(
+        {
+          reply:
+            "Mohon maaf, layanan AI sedang mengalami kendala. Silakan hubungi Sekretariat PMB melalui kontak yang tertera di halaman ini.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const replyText =
+      responseText ||
+      `Mohon maaf, saya belum dapat memberikan jawaban. Silakan hubungi Sekretariat PMB melalui WhatsApp di ${content.contact.whatsapp}.`;
+
+    logChatQuery({
+      question: lastUserQuestion,
+      reply: replyText,
+      status: "answered",
+      hasContactReferral:
+        replyText.includes(content.contact.whatsapp) ||
+        replyText.toLowerCase().includes("whatsapp") ||
+        replyText.toLowerCase().includes("sekretariat"),
+    }).catch(err => console.warn("Chat log recording skipped:", err));
+
+    return NextResponse.json({
+      reply: replyText,
+    });
   } catch (error: any) {
-    console.error("Gemini API Error:", error);
+    console.error("Unexpected Chat API Error:", error);
     return NextResponse.json(
       {
         reply:

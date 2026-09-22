@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import {
   IconArrowLeft,
@@ -106,8 +107,40 @@ function ProgramSelect({ id, value, onChange, onBlur, onFocus, exclude, required
   );
 }
 
-export default function RegistrationForm({ contact }: { contact: Contact }) {
-  const [draft, setDraft] = useState<ApplicationDraft>(EMPTY_APPLICATION_DRAFT);
+export default function RegistrationForm({
+  contact,
+  initialPathway,
+}: {
+  contact: Contact;
+  initialPathway?: string;
+}) {
+  const searchParams = useSearchParams();
+  const queryJalur = searchParams.get("jalur");
+
+  const resolvedInitialPathway = useMemo(() => {
+    const raw = queryJalur || initialPathway;
+    if (!raw) return "";
+    const lower = raw.toLowerCase();
+    if (lower.includes("pmdk")) return "pmdk";
+    if (lower.includes("rpl")) return "rpl";
+    if (lower.includes("reguler")) return "reguler";
+    return "";
+  }, [queryJalur, initialPathway]);
+
+  const [draft, setDraft] = useState<ApplicationDraft>(() => ({
+    ...EMPTY_APPLICATION_DRAFT,
+    pathwayCode: (resolvedInitialPathway as ApplicationDraft["pathwayCode"]) || EMPTY_APPLICATION_DRAFT.pathwayCode,
+  }));
+
+  useEffect(() => {
+    if (resolvedInitialPathway && (!draft.pathwayCode || draft.pathwayCode !== resolvedInitialPathway)) {
+      setDraft(prev => ({
+        ...prev,
+        pathwayCode: resolvedInitialPathway as ApplicationDraft["pathwayCode"],
+      }));
+    }
+  }, [resolvedInitialPathway]);
+
   const [step, setStep] = useState(0);
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [editingField, setEditingField] = useState<FieldName | null>(null);
@@ -192,8 +225,8 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
         </div>
         <p className="text-base leading-relaxed text-body">Tim PMB dapat menghubungi Anda melalui nomor telepon atau email yang didaftarkan untuk tahapan berikutnya.</p>
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
-          <a href="/" className="rounded-xl border border-line px-5 py-3 text-sm font-semibold text-body transition hover:border-emerald-700 hover:text-emerald-800">Kembali ke beranda</a>
-          <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-emerald-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-950">Hubungi PMB</a>
+          <a href="/" className="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 transition hover:border-structure-rose-400 hover:text-structure-rose-600">Kembali ke beranda</a>
+          <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-structure-rose-500 hover:bg-structure-rose-600 px-5 py-3 text-sm font-semibold text-white transition shadow-sm">Hubungi PMB</a>
         </div>
       </div>
     </main>
@@ -227,38 +260,38 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
           </div>
           <ol className="space-y-2">
             {stepDefinitions.map((item, index) => <li key={item.title}>
-              <button type="button" disabled={index > step} onClick={() => setStep(index)} className={`flex w-full items-start gap-3 rounded-xl px-3 py-3 text-left transition ${index === step ? "bg-emerald-900 text-white" : index < step ? "text-emerald-900 hover:bg-emerald-50" : "cursor-default text-muted/60"}`}>
-                <span className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${index === step ? "bg-amber-300 text-emerald-950" : index < step ? "bg-emerald-100 text-emerald-800" : "bg-paper-alt text-muted"}`}>{index < step ? <IconCheck size={14} /> : index + 1}</span>
-                <span><span className="block text-sm font-semibold">{item.title}</span><span className={`mt-0.5 block text-xs ${index === step ? "text-emerald-100/75" : "text-muted"}`}>{item.description}</span></span>
+              <button type="button" disabled={index > step} onClick={() => setStep(index)} className={`flex w-full items-start gap-3 rounded-xl px-3 py-3 text-left transition ${index === step ? "bg-structure-blue-900 text-white" : index < step ? "text-structure-blue-900 hover:bg-structure-rose-50" : "cursor-default text-neutral-400"}`}>
+                <span className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${index === step ? "bg-structure-rose-500 text-white" : index < step ? "bg-structure-rose-100 text-structure-rose-700" : "bg-neutral-100 text-neutral-500"}`}>{index < step ? <IconCheck size={14} /> : index + 1}</span>
+                <span><span className="block text-sm font-semibold">{item.title}</span><span className={`mt-0.5 block text-xs ${index === step ? "text-structure-blue-200/80" : "text-neutral-500"}`}>{item.description}</span></span>
               </button>
             </li>)}
           </ol>
-          <div className="rounded-2xl border border-line bg-white p-4 text-sm">
-            <p className="font-semibold text-ink">Butuh bantuan?</p>
-            <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center gap-2 text-emerald-800 hover:underline"><IconPhone size={16} /> {contact.whatsapp}</a>
-            <a href={`mailto:${contact.email}`} className="mt-2 flex items-center gap-2 break-all text-emerald-800 hover:underline"><IconMail size={16} /> {contact.email}</a>
+          <div className="rounded-2xl border border-neutral-200 bg-white p-4 text-sm">
+            <p className="font-semibold text-neutral-900">Butuh bantuan?</p>
+            <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center gap-2 text-structure-blue-700 hover:underline"><IconPhone size={16} /> {contact.whatsapp}</a>
+            <a href={`mailto:${contact.email}`} className="mt-2 flex items-center gap-2 break-all text-structure-blue-700 hover:underline"><IconMail size={16} /> {contact.email}</a>
           </div>
         </div>
       </aside>
 
       <section className="min-w-0">
         <div className="mb-5 flex items-end justify-between gap-4">
-          <div><p className="text-sm font-semibold text-emerald-800">Langkah {step + 1} dari 4</p><h1 className="mt-1 font-serif text-3xl text-ink">{stepDefinitions[step].title}</h1></div>
-          <span className="text-sm font-semibold text-muted">{progress}%</span>
+          <div><p className="text-sm font-semibold text-structure-blue-700">Langkah {step + 1} dari 4</p><h1 className="mt-1 font-serif text-3xl text-neutral-900">{stepDefinitions[step].title}</h1></div>
+          <span className="text-sm font-semibold text-neutral-500">{progress}%</span>
         </div>
-        <div className="mb-7 h-2 overflow-hidden rounded-full bg-paper-alt" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={`Langkah ${step + 1} dari 4`}><div className="h-full rounded-full bg-gradient-to-r from-emerald-800 to-gold transition-all duration-300" style={{ width: `${progress}%` }} /></div>
+        <div className="mb-7 h-2 overflow-hidden rounded-full bg-neutral-200" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label={`Langkah ${step + 1} dari 4`}><div className="h-full rounded-full bg-gradient-to-r from-structure-blue-800 to-structure-rose-500 transition-all duration-300" style={{ width: `${progress}%` }} /></div>
 
         <form onSubmit={submit} noValidate className="rounded-3xl border border-line bg-white p-5 shadow-[0_18px_60px_-34px_rgba(6,26,18,0.25)] sm:p-8">
           {errorMessage && <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{errorMessage}</div>}
 
           <div className={step === 0 ? "space-y-8" : "hidden"}>
             <fieldset className="space-y-3">
-              <legend className="text-sm font-semibold text-ink">Pilihan jalur <span className="text-red-700">*</span></legend>
+              <legend className="text-sm font-semibold text-neutral-900">Pilihan jalur <span className="text-red-700">*</span></legend>
               <div className="grid gap-3 sm:grid-cols-3">
-                {ADMISSION_PATHWAYS.map(item => <label key={item.code} className={`cursor-pointer rounded-2xl border p-4 transition ${draft.pathwayCode === item.code ? "border-emerald-700 bg-emerald-50 ring-2 ring-emerald-100" : "border-line hover:border-emerald-600/50"}`}>
+                {ADMISSION_PATHWAYS.map(item => <label key={item.code} className={`cursor-pointer rounded-2xl border p-4 transition ${draft.pathwayCode === item.code ? "border-structure-blue-900 bg-structure-blue-50/50 ring-1 ring-structure-blue-900 shadow-xs" : "border-neutral-200 hover:border-structure-blue-300 bg-white"}`}>
                   <input id={item.code === ADMISSION_PATHWAYS[0].code ? "pathwayCode" : undefined} type="radio" name="pathwayCode" value={item.code} checked={draft.pathwayCode === item.code} onChange={() => { update("pathwayCode", item.code); setTouched(previous => ({ ...previous, pathwayCode: true })); }} className="sr-only" />
-                  <span className="flex items-center justify-between gap-2"><span className="text-sm font-semibold text-ink">{item.label}</span>{draft.pathwayCode === item.code && <IconCircleCheckFilled size={18} className="text-emerald-700" />}</span>
-                  <span className="mt-2 block text-xs leading-relaxed text-muted">{item.description}</span>
+                  <span className="flex items-center justify-between gap-2"><span className="text-sm font-semibold text-neutral-900">{item.label}</span>{draft.pathwayCode === item.code && <IconCircleCheckFilled size={18} className="text-structure-blue-900" />}</span>
+                  <span className="mt-2 block text-xs leading-relaxed text-neutral-500">{item.description}</span>
                 </label>)}
               </div>
               {touched.pathwayCode && errors.pathwayCode && <p role="alert" className="text-sm text-red-700">{errors.pathwayCode}</p>}
@@ -355,13 +388,13 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
                 <button
                   type="button"
                   onClick={nextStep}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-950 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-structure-rose-500 hover:bg-structure-rose-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition w-full sm:w-auto"
                 >
                   Lanjutkan <IconArrowRight size={17} />
                 </button>
                 <a
                   href="/"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-muted transition hover:text-emerald-900 hover:bg-paper-alt w-full sm:w-auto text-center"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-neutral-500 transition hover:text-structure-rose-600 hover:bg-structure-rose-50/50 w-full sm:w-auto text-center"
                 >
                   <IconArrowLeft size={16} /> Kembali
                 </a>
@@ -371,7 +404,7 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
                 <button
                   type="button"
                   onClick={() => setStep(current => current - 1)}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-line px-5 py-3.5 text-sm font-semibold text-body transition hover:border-emerald-700 hover:text-emerald-800"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-200 px-5 py-3.5 text-sm font-semibold text-neutral-700 transition hover:border-structure-rose-400 hover:text-structure-rose-600"
                 >
                   <IconArrowLeft size={17} /> Sebelumnya
                 </button>
@@ -379,7 +412,7 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-900 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-950"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-structure-rose-500 hover:bg-structure-rose-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition"
                   >
                     Lanjutkan <IconArrowRight size={17} />
                   </button>
@@ -387,7 +420,7 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
                   <button
                     type="submit"
                     disabled={busy}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-6 py-3.5 text-sm font-bold text-emerald-950 shadow-sm transition hover:bg-gold-light disabled:opacity-60"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-structure-rose-500 hover:bg-structure-rose-600 px-6 py-3.5 text-sm font-bold text-white shadow-sm transition disabled:opacity-60"
                   >
                     <IconClipboardCheck size={18} /> Kirim pendaftaran
                   </button>

@@ -35,7 +35,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-paper/92 backdrop-blur-md border-b border-line shadow-[0_4px_20px_-4px_rgba(18,27,22,0.04)] py-3.5"
+          ? "bg-white/95 backdrop-blur-md border-b border-neutral-200 shadow-[0_4px_20px_-4px_rgba(21,23,28,0.05)] py-3.5"
           : "bg-transparent py-5"
       }`}
     >
@@ -50,10 +50,10 @@ export default function Navbar() {
             className="transition-transform group-hover:scale-105 object-contain"
           />
           <div className="flex flex-col">
-            <span className={`font-serif text-[17px] font-semibold leading-tight transition-colors duration-300 ${isScrolled ? "text-ink" : "text-white"}`}>
+            <span className={`font-serif text-[17px] font-semibold leading-tight transition-colors duration-300 ${isScrolled ? "text-structure-blue-900" : "text-white"}`}>
               {content.site.name}
             </span>
-            <span className={`text-[11px] tracking-wide font-medium transition-colors duration-300 ${isScrolled ? "text-muted" : "text-white/75"}`}>
+            <span className={`text-[11px] tracking-wide font-medium transition-colors duration-300 ${isScrolled ? "text-neutral-500" : "text-white/75"}`}>
               {content.site.university}
             </span>
           </div>
@@ -68,7 +68,7 @@ export default function Navbar() {
                 href={link.href}
                 className={`text-[14px] font-medium transition-colors duration-200 ${
                   isScrolled
-                    ? "text-body hover:text-emerald-800"
+                    ? "text-neutral-700 hover:text-structure-blue-600"
                     : "text-white/85 hover:text-white"
                 }`}
               >
@@ -78,11 +78,7 @@ export default function Navbar() {
           </div>
           <a
             href={content.site.registrationUrl}
-            className={`px-5 py-2.5 rounded-xl font-medium text-[13.5px] transition-all duration-200 shadow-sm active:scale-[0.98] ${
-              isScrolled
-                ? "bg-emerald-800 hover:bg-emerald-900 text-white shadow-emerald-900/10 hover:shadow-md"
-                : "bg-gold hover:bg-gold-dark text-emerald-950 font-semibold shadow-gold/20 hover:shadow-md"
-            }`}
+            className="px-5 py-2.5 rounded-xl font-semibold text-[13.5px] bg-focal hover:bg-focal-hover text-white transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]"
           >
             {content.site.registrationLabel}
           </a>
@@ -91,7 +87,7 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`md:hidden p-2 transition-colors focus:outline-none ${isScrolled ? "text-ink hover:text-emerald-800" : "text-white hover:text-white/70"}`}
+          className={`md:hidden p-2 transition-colors focus:outline-none ${isScrolled ? "text-structure-blue-900 hover:text-structure-blue-700" : "text-white hover:text-white/70"}`}
           aria-label="Toggle Menu"
         >
           {isOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
@@ -100,13 +96,13 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-paper border-b border-line shadow-xl py-6 px-6 flex flex-col gap-4 animate-in fade-in slide-in-from-top-3 duration-200">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-neutral-200 shadow-xl py-6 px-6 flex flex-col gap-4 animate-in fade-in slide-in-from-top-3 duration-200">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="text-[15px] font-medium text-body hover:text-emerald-800 transition-colors py-1.5"
+              className="text-[15px] font-medium text-neutral-700 hover:text-structure-blue-600 transition-colors py-1.5"
             >
               {link.name}
             </a>
@@ -114,7 +110,7 @@ export default function Navbar() {
           <a
             href={content.site.registrationUrl}
             onClick={() => setIsOpen(false)}
-            className="w-full text-center mt-2 px-5 py-3 rounded-xl bg-emerald-800 text-white font-medium text-[14px] hover:bg-emerald-900 transition-colors shadow-sm"
+            className="w-full text-center mt-2 px-5 py-3 rounded-xl bg-focal hover:bg-focal-hover text-white font-semibold text-[14px] transition-colors shadow-sm"
           >
             {content.site.registrationLabel}
           </a>

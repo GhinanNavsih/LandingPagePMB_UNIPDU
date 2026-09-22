@@ -20,10 +20,10 @@ export default function Hero() {
         <source src={content.hero.videoUrl} type="video/mp4" />
       </video>
 
-      {/* Cinematic Islamic Emerald Overlay for readability and prestige */}
-      <div className="absolute inset-0 bg-emerald-950/70" />
-      <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-transparent to-emerald-950/95" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(197,147,40,0.15),transparent_60%)] pointer-events-none" />
+      {/* Light Cinematic Structural Dusk Blue Overlay */}
+      <div className="absolute inset-0 bg-structure-blue-950/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-structure-blue-950/50 via-transparent to-structure-blue-950/60" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(220,94,132,0.1),transparent_60%)] pointer-events-none" />
 
       <div className="max-w-[1080px] mx-auto px-6 relative z-10 w-full text-center">
         {/* Eyebrow badge */}
@@ -31,9 +31,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/60 backdrop-blur-md border border-gold/30 text-amber-200 text-xs font-medium tracking-wide mb-6 shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-structure-blue-950/70 backdrop-blur-md border border-structure-rose-500/30 text-structure-rose-200 text-xs font-medium tracking-wide mb-6 shadow-sm"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-structure-rose-500 animate-pulse" />
           <span>{content.hero.badge}</span>
         </motion.div>
 
@@ -42,32 +42,22 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-serif text-4xl sm:text-5xl md:text-[62px] font-normal text-white leading-[1.18] max-w-4xl mx-auto drop-shadow-md"
+          className="font-serif text-4xl sm:text-5xl md:text-[62px] font-normal text-white leading-[1.18] max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
         >
           {content.hero.title}{" "}
-          <span className="italic font-normal text-amber-300">{content.hero.highlight}</span> {content.hero.suffix}
+          <span className="italic font-normal text-structure-rose-300 drop-shadow-sm">{content.hero.highlight}</span> {content.hero.suffix}
         </motion.h1>
-
-        {/* Subhead */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-[16px] md:text-[18px] text-emerald-50/85 leading-relaxed max-w-2xl mx-auto mt-6"
-        >
-          {content.hero.description}
-        </motion.p>
 
         {/* Call to Actions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8"
         >
           <a
             href={content.site.registrationUrl}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold hover:bg-gold-light text-emerald-950 font-semibold text-[15px] transition-all duration-200 shadow-lg shadow-gold/20 hover:shadow-xl flex items-center justify-center gap-2.5 group active:scale-[0.98]"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-focal hover:bg-focal-hover text-white font-semibold text-[15px] transition-all duration-200 shadow-lg shadow-focal/25 hover:shadow-xl flex items-center justify-center gap-2.5 group active:scale-[0.98]"
           >
             {content.site.registrationLabel}
             <IconArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
@@ -85,15 +75,15 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-14 inline-flex items-center gap-6 px-6 py-3 rounded-xl border border-white/15 bg-emerald-950/40 backdrop-blur-md shadow-sm"
+          className="mt-14 inline-flex items-center gap-6 px-6 py-3 rounded-xl border border-white/20 bg-[#4D5C9D]/60 backdrop-blur-md shadow-md"
         >
           <div className="flex flex-col items-center">
-            <span className="text-[11px] text-emerald-100/70 tracking-wide">Akreditasi Institusi</span>
-            <span className="font-serif text-[15px] font-semibold text-amber-200">{content.accreditation.rating}</span>
+            <span className="text-[11px] text-structure-blue-200/70 tracking-wide">Akreditasi Institusi</span>
+            <span className="font-serif text-[15px] font-semibold text-structure-rose-300">{content.accreditation.rating}</span>
           </div>
           <div className="w-px h-7 bg-white/15" />
           <div className="flex flex-col items-center">
-            <span className="text-[11px] text-emerald-100/70 tracking-wide">SK BAN-PT</span>
+            <span className="text-[11px] text-structure-blue-200/70 tracking-wide">SK BAN-PT</span>
             <span className="text-xs font-semibold text-white/90">{content.accreditation.decree}</span>
           </div>
         </motion.div>
