@@ -29,6 +29,8 @@ import {
   type ApplicationDraft,
 } from "@/lib/application-schema";
 import CustomProgramSelect from "./CustomProgramSelect";
+import KabupatenSearchSelect from "./KabupatenSearchSelect";
+import AlamatCascadeSelect from "./AlamatCascadeSelect";
 
 type FieldName = keyof ApplicationDraft;
 type Contact = { whatsapp: string; whatsappUrl: string; email: string };
@@ -289,8 +291,8 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
               </div>
               {touched.gender && errors.gender && <p role="alert" className="text-sm text-red-700">{errors.gender}</p>}
             </fieldset>
-            <FieldShell name="birthPlace" label="Tempat lahir" required {...fieldState("birthPlace")}>
-              <input id="birthPlace" name="birthPlace" autoComplete="address-level2" value={draft.birthPlace} onChange={event => update("birthPlace", event.target.value)} onFocus={() => setEditingField("birthPlace")} onBlur={() => blur("birthPlace")} placeholder="Contoh: Jombang" className={inputClass} />
+            <FieldShell name="birthPlace" label="Tempat lahir" required hint="Pilih atau cari kota/kabupaten kelahiran Anda." {...fieldState("birthPlace")}>
+              <KabupatenSearchSelect id="birthPlace" value={draft.birthPlace} onChange={nama => update("birthPlace", nama)} onFocus={() => setEditingField("birthPlace")} onBlur={() => blur("birthPlace")} />
             </FieldShell>
             <FieldShell name="birthDate" label="Tanggal lahir" required hint="Gunakan pemilih tanggal agar hari, bulan, dan tahun terisi sekaligus." {...fieldState("birthDate")}>
               <input id="birthDate" name="birthDate" type="date" min="1940-01-01" max={new Date().toISOString().slice(0, 10)} value={draft.birthDate} onChange={event => update("birthDate", event.target.value)} onFocus={() => setEditingField("birthDate")} onBlur={() => blur("birthDate")} className={inputClass} />
@@ -298,8 +300,8 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
           </div>}
 
           {step === 2 && <div className="space-y-7">
-            <FieldShell name="address" label="Alamat lengkap" required hint="Digunakan untuk pencatatan biodata calon mahasiswa." {...fieldState("address")}>
-              <textarea id="address" name="address" autoComplete="street-address" rows={4} value={draft.address} onChange={event => update("address", event.target.value)} onFocus={() => setEditingField("address")} onBlur={() => blur("address")} placeholder="Nama jalan, desa/kelurahan, kecamatan, kabupaten/kota" className={inputClass} />
+            <FieldShell name="address" label="Alamat lengkap" required hint="Pilih wilayah asal calon mahasiswa secara berurutan." {...fieldState("address")}>
+              <AlamatCascadeSelect id="address" value={draft.address} onChange={composed => update("address", composed)} onFocus={() => setEditingField("address")} onBlur={() => blur("address")} />
             </FieldShell>
             <FieldShell name="phone" label="Nomor telepon / HP" required hint="Gunakan nomor WhatsApp aktif agar tim PMB mudah menghubungi Anda." {...fieldState("phone")}>
               <div className="relative"><IconPhone aria-hidden size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" /><input id="phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" value={draft.phone} onChange={event => update("phone", event.target.value)} onFocus={() => setEditingField("phone")} onBlur={() => blur("phone")} placeholder="Contoh: 0812 3456 7890" className={`${inputClass} pl-11`} /></div>
