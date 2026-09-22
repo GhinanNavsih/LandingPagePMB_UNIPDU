@@ -253,7 +253,7 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
         <form onSubmit={submit} noValidate className="rounded-3xl border border-line bg-white p-5 shadow-[0_18px_60px_-34px_rgba(6,26,18,0.25)] sm:p-8">
           {errorMessage && <div role="alert" className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{errorMessage}</div>}
 
-          {step === 0 && <div className="space-y-8">
+          <div className={step === 0 ? "space-y-8" : "hidden"}>
             <fieldset className="space-y-3">
               <legend className="text-sm font-semibold text-ink">Pilihan jalur <span className="text-red-700">*</span></legend>
               <div className="grid gap-3 sm:grid-cols-3">
@@ -276,9 +276,9 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
               </FieldShell>
               <button type="button" onClick={() => { update("secondaryProgramCode", ""); setShowSecondary(false); }} className="text-sm text-muted hover:text-red-700">Hapus pilihan kedua</button>
             </div>}
-          </div>}
+          </div>
 
-          {step === 1 && <div className="space-y-7">
+          <div className={step === 1 ? "space-y-7" : "hidden"}>
             <FieldShell name="fullName" label="Nama lengkap" required hint="Tuliskan sesuai ijazah atau identitas resmi." {...fieldState("fullName")}>
               <div className="relative"><IconUser aria-hidden size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" /><input id="fullName" name="fullName" autoComplete="name" value={draft.fullName} onChange={event => update("fullName", event.target.value)} onFocus={() => setEditingField("fullName")} onBlur={() => blur("fullName")} placeholder="Contoh: Ahmad Fulan" className={`${inputClass} pl-11`} /></div>
             </FieldShell>
@@ -297,10 +297,10 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
             <FieldShell name="birthDate" label="Tanggal lahir" required hint="Gunakan pemilih tanggal agar hari, bulan, dan tahun terisi sekaligus." {...fieldState("birthDate")}>
               <input id="birthDate" name="birthDate" type="date" min="1940-01-01" max={new Date().toISOString().slice(0, 10)} value={draft.birthDate} onChange={event => update("birthDate", event.target.value)} onFocus={() => setEditingField("birthDate")} onBlur={() => blur("birthDate")} className={inputClass} />
             </FieldShell>
-          </div>}
+          </div>
 
-          {step === 2 && <div className="space-y-7">
-            <FieldShell name="address" label="Alamat lengkap" required hint="Pilih wilayah asal calon mahasiswa secara berurutan." {...fieldState("address")}>
+          <div className={step === 2 ? "space-y-7" : "hidden"}>
+            <FieldShell name="address" label="Alamat asal" required hint="Pilih wilayah tempat tinggal secara berurutan: Provinsi → Kabupaten/Kota → Kecamatan → Kelurahan/Desa." {...fieldState("address")}>
               <AlamatCascadeSelect id="address" value={draft.address} onChange={composed => update("address", composed)} onFocus={() => setEditingField("address")} onBlur={() => blur("address")} />
             </FieldShell>
             <FieldShell name="phone" label="Nomor telepon / HP" required hint="Gunakan nomor WhatsApp aktif agar tim PMB mudah menghubungi Anda." {...fieldState("phone")}>
@@ -325,9 +325,9 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
                 })}
               </div>
             </fieldset>
-          </div>}
+          </div>
 
-          {step === 3 && <div className="space-y-7">
+          <div className={step === 3 ? "space-y-7" : "hidden"}>
             <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm leading-relaxed text-emerald-950">Periksa data sebelum dikirim. Anda masih dapat kembali ke bagian sebelumnya untuk memperbaikinya.</div>
             <ReviewSection title="Pilihan studi" onEdit={() => setStep(0)} rows={[
               ["Jalur", pathway?.label || "—"],
@@ -347,7 +347,7 @@ export default function RegistrationForm({ contact }: { contact: Contact }) {
               ["Mengetahui UNIPDU dari", draft.discoverySourceCodes.length ? draft.discoverySourceCodes.map(code => catalogItem(DISCOVERY_SOURCES, code)?.label).filter(Boolean).join(", ") : "Tidak diisi"],
             ]} />
             <p className="text-sm leading-relaxed text-muted">Dengan mengirimkan formulir, Anda menyetujui penggunaan data ini untuk proses Penerimaan Mahasiswa Baru UNIPDU.</p>
-          </div>}
+          </div>
 
           <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} className="absolute -left-[9999px] h-px w-px opacity-0" aria-hidden="true" />
 

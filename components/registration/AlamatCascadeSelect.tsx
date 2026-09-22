@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SearchSelect, { SearchSelectOption } from "./SearchSelect";
-import { IconMapPin, IconBuildingCommunity } from "@tabler/icons-react";
+import { IconMapPin } from "@tabler/icons-react";
 
 interface KelurahanOption extends SearchSelectOption {
   kecamatanKode: string;
@@ -68,7 +68,6 @@ export default function AlamatCascadeSelect({
   const [kabupatenKode, setKabupatenKode] = useState("");
   const [kecamatanKode, setKecamatanKode] = useState("");
   const [kelurahanKode, setKelurahanKode] = useState("");
-  const [jalanDetail, setJalanDetail] = useState("");
 
   const [loadingProvinsi, setLoadingProvinsi] = useState(true);
   const [loadingKabupaten, setLoadingKabupaten] = useState(false);
@@ -125,21 +124,17 @@ export default function AlamatCascadeSelect({
     const kecamatanNama = findNama(kecKelData.kecamatan, kecamatanKode);
     const kelurahanNama = findNama(kecKelData.kelurahan, kelurahanKode);
 
-    const parts = [
-      jalanDetail.trim(),
-      kelurahanNama && `Kel./Ds. ${kelurahanNama}`,
-      kecamatanNama && `Kec. ${kecamatanNama}`,
-      kabupatenNama,
-      provinsiNama,
-    ].filter(Boolean);
-
-    const fullAddress = parts.join(", ");
-    onChange(fullAddress);
+    // Only commit composed address when all 4 cascading levels are selected
+    if (provinsiNama && kabupatenNama && kecamatanNama && kelurahanNama) {
+      const fullAddress = `Kel./Ds. ${kelurahanNama}, Kec. ${kecamatanNama}, ${kabupatenNama}, ${provinsiNama}`;
+      onChange(fullAddress);
+    } else {
+      onChange("");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provinsiKode, kabupatenKode, kecamatanKode, kelurahanKode, jalanDetail, provinsiList, kabupatenList, kecKelData]);
+  }, [provinsiKode, kabupatenKode, kecamatanKode, kelurahanKode, provinsiList, kabupatenList, kecKelData]);
 
   const composedPreview = [
-    jalanDetail.trim(),
     findNama(kecKelData.kelurahan, kelurahanKode) &&
       `Kel./Ds. ${findNama(kecKelData.kelurahan, kelurahanKode)}`,
     findNama(kecKelData.kecamatan, kecamatanKode) &&
@@ -157,10 +152,9 @@ export default function AlamatCascadeSelect({
 
   return (
     <div className="space-y-4">
-      {/* Hidden input to anchor the field id for focus/validation */}
+      {/* Hidden input to hold the composed value for form submission */}
       <input
         type="hidden"
-        id={id}
         name={id}
         value={composedPreview}
         aria-hidden="true"
@@ -174,6 +168,7 @@ export default function AlamatCascadeSelect({
             1. Provinsi <span className="text-red-700">*</span>
           </label>
           <SearchSelect
+            id={id}
             options={provinsiList}
             value={provinsiKode}
             onChange={kode => {
@@ -243,26 +238,6 @@ export default function AlamatCascadeSelect({
             placeholder="Pilih atau cari kelurahan/desa..."
             disabledPlaceholder="Pilih kecamatan terlebih dahulu"
             disabled={!kecamatanKode}
-          />
-        </div>
-      </div>
-
-      {/* 5. Detail Jalan / RT / RW */}
-      <div className="space-y-1.5">
-        <label className="text-xs font-semibold uppercase tracking-wider text-muted">
-          Detail Alamat <span className="text-xs font-normal text-muted/80">(Nama jalan, dusun, RT/RW, atau nomor rumah)</span>
-        </label>
-        <div className="relative">
-          <IconBuildingCommunity
-            size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-muted pointer-events-none"
-          />
-          <input
-            type="text"
-            value={jalanDetail}
-            onChange={e => setJalanDetail(e.target.value)}
-            placeholder="Contoh: Jl. Merdeka No. 45, RT 02 / RW 03, Dusun Rejosari"
-            className={`${effectiveInputClass} pl-11`}
           />
         </div>
       </div>
